@@ -1,9 +1,28 @@
+import Button from '@/components/Button'
 import Image from 'next/image'
+import { SignIn } from './buttons'
 
 export default function Home() {
 	return (
-		<main className='flex min-h-screen flex-col items-center justify-between p-24'>
-			{}
+		<main className='h-full w-full md:relative flex flex-1 py-24 items-center md:items-stretch justify-between'>
+			<div className='h-full w-full'>
+				<h1 className='text-4xl md:text-8xl z-10 font-extrabold shadow-3d'>
+					Helping hands network
+				</h1>
+				<p className='text-xl my-4'>A network of care and collaboration</p>
+				<div className='md:hidden'>
+					<SignIn />
+				</div>
+			</div>
+
+			<Image
+				src='/hands.png'
+				alt='hero'
+				className='p-12 -z-10 mt-24 md:mt-16 md:ml-16'
+				layout='fill'
+				objectFit='contain'
+				objectPosition='center'
+			/>
 		</main>
 	)
 }
