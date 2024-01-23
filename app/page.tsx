@@ -1,18 +1,15 @@
-import Button from '@/components/Button'
+import { ThemeToggle } from '@/components/theme-provider'
 import Image from 'next/image'
-import { SignIn } from './buttons'
 
 export default function Home() {
 	return (
 		<main className='h-full w-full md:relative flex flex-1 py-24 items-center md:items-stretch justify-between'>
+			<ThemeToggle />
 			<div className='h-full w-full'>
 				<h1 className='text-4xl md:text-8xl z-10 font-extrabold shadow-3d'>
 					Helping hands network
 				</h1>
 				<p className='text-xl my-4'>A network of care and collaboration</p>
-				<div className='md:hidden'>
-					<SignIn />
-				</div>
 			</div>
 
 			<Image
