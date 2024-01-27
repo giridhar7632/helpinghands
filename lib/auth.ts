@@ -5,9 +5,8 @@ import Google from 'next-auth/providers/google'
 import Email, { EmailConfig } from 'next-auth/providers/email'
 import { sendVerificationRequest } from './sendVerificationRequest'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import { PrismaClient } from '@prisma/client'
+import prisma from './db'
 
-const prisma = new PrismaClient()
 export const authOptions: NextAuthConfig = {
 	adapter: PrismaAdapter(prisma),
 	providers: [
