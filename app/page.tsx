@@ -25,10 +25,8 @@ export default function Home() {
 			<Image
 				src='/hands.png'
 				alt='hero'
-				className='p-12 -z-10 mt-24 md:mt-16 md:ml-16'
-				layout='fill'
-				objectFit='contain'
-				objectPosition='center'
+				className='p-12 -z-10 mt-24 md:mt-16 md:ml-16 object-contain h-full'
+				fill={true}
 			/>
 		</main>
 	)

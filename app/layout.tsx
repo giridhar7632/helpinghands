@@ -50,7 +50,7 @@ export default async function RootLayout({
 	return (
 		<SessionProvider session={session}>
 			<html lang='en'>
-				<body className={`${inter.className} dark:bg-gray-900`}>
+				<body className={`${inter.className}`}>
 					<ThemeProvider
 						attribute='class'
 						defaultTheme='system'

@@ -53,7 +53,7 @@ export const SocialLogin = ({ type }: SocialLoginProps) => {
 	return (
 		<Button
 			className='flex-1'
-			variant='outline'
+			variant='default'
 			onClick={() => {
 				signIn(type.toLowerCase(), {
 					callbackUrl: callbackUrl || `/app`,
