@@ -13,14 +13,14 @@ export default async function AuthLayout({
 	return (
 		<div className='max-w-5xl min-h-screen px-4 lg:px-0 mx-auto overflow-x-hidden flex w-full h-full flex-col items-center justify-between'>
 			<main className='py-24'>
-				<div className='w-80 sm:w-96 flex flex-col bg-white border border-gray-200 dark:bg-neutral-900 dark:border-neutral-800 rounded-2xl p-6 md:p-12'>
+				<div className='w-80 sm:w-96 flex flex-col bg-white border border-neutral-200 dark:bg-neutral-900 dark:border-neutral-800 rounded-2xl p-6 md:p-12'>
 					{children}
 				</div>
 			</main>
-			<footer className='flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t dark:border-gray-600'>
+			<footer className='flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t dark:border-neutral-600'>
 				<div className='flex gap-2 items-center'>
 					<Image src='/heart.svg' width={24} height={24} alt='logo' />
-					<Link href={'/'} className='text-xs text-gray-500  '>
+					<Link href={'/'} className='text-xs text-neutral-500  '>
 						Helping hands network.
 					</Link>
 				</div>

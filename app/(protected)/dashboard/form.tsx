@@ -20,14 +20,14 @@ export default function Form() {
 			}}>
 			<div className='flex flex-col md:flex-row md:gap-4 w-full'>
 				<Input
-					aria-label='Event name'
+					placeholder='Event name'
 					disabled={pending}
 					name='name'
 					type='text'
 					required
 				/>
 				<Input
-					aria-label='No of volunteers'
+					placeholder='No of volunteers'
 					disabled={pending}
 					name='volunteers'
 					type='number'
@@ -36,21 +36,25 @@ export default function Form() {
 			</div>
 			<div className='flex flex-col md:flex-row md:gap-4 w-full'>
 				<Input
-					aria-label='Start date'
+					placeholder='Start date'
 					disabled={pending}
 					name='start'
 					type='date'
 					required
 				/>
 				<Input
-					aria-label='End date'
+					placeholder='End date'
 					disabled={pending}
 					name='end'
 					type='date'
 					required
 				/>
 			</div>
-			<Input type='textarea' name='description' />
+			<Input
+				type='textarea'
+				placeholder='A short description about the event...'
+				name='description'
+			/>
 			<Button type='submit' disabled={pending}>
 				Create new event
 			</Button>
