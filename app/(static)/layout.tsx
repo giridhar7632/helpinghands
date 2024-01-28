@@ -17,7 +17,7 @@ export default async function AuthLayout({
 				<Link href='/'>
 					<div className='flex items-center gap-4'>
 						<Image alt='logo' src='/logo.png' width={32} height={32} />
-						<p className='text-xl leading-none'>Helping hands network</p>
+						<p className='leading-none'>Helping hands network</p>
 					</div>
 				</Link>
 				<ThemeToggle />
@@ -43,7 +43,7 @@ export default async function AuthLayout({
 					</Link>
 					<Link
 						className='text-xs hover:underline underline-offset-4'
-						href='/form/contact-us'>
+						href='/contact-us'>
 						Contact
 					</Link>
 				</nav>

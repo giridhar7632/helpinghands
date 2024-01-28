@@ -1,47 +1,44 @@
 import Link from 'next/link'
 
 export default function Policy() {
-  return (
-    <article className="px-6 space-y-6">
-      <h1 className="text-3xl font-bold md:text-5xl/none text-gray-700 dark:text-gray-300">
-        Privacy Policy
-      </h1>
-      <p>
-        {
-          'We care about your privacy! This Privacy Policy explains how we collect, use, and share your information when you use our platform and services ("Services")'
-        }
-      </p>
-      <h2 className="text-2xl font-bold">Information Collection</h2>
-      <p>
-        We collect information from you when you register on our site, subscribe
-        to our newsletter, respond to a survey or fill out a form.
-      </p>
-      <h2 className="text-2xl font-bold">Use of Information</h2>
-      <p>
-        Any of the information we collect from you may be used in one of the
-        following ways: To personalize your experience, to improve our website,
-        to improve customer service, to process transactions, to send periodic
-        emails.
-      </p>
-      <h2 className="text-2xl font-bold">Data Security</h2>
-      <p>
-        We implement a variety of security measures to maintain the safety of
-        your personal information when you place an order or enter, submit, or
-        access your personal information.
-      </p>
+	return (
+		<article className='px-6 space-y-6'>
+			<h1 className='text-3xl font-bold md:text-5xl/none'>Privacy Policy</h1>
+			<p>
+				{
+					'We care about your privacy! This Privacy Policy explains how we collect, use, and share your information when you use our platform and services ("Services")'
+				}
+			</p>
+			<h2 className='text-2xl font-bold'>Information Collection</h2>
+			<p>
+				We collect information from you when you register on our site, subscribe
+				to our newsletter, respond to a survey or fill out a form.
+			</p>
+			<h2 className='text-2xl font-bold'>Use of Information</h2>
+			<p>
+				Any of the information we collect from you may be used in one of the
+				following ways: To personalize your experience, to improve our website,
+				to improve customer service, to process transactions, to send periodic
+				emails.
+			</p>
+			<h2 className='text-2xl font-bold'>Data Security</h2>
+			<p>
+				We implement a variety of security measures to maintain the safety of
+				your personal information when you place an order or enter, submit, or
+				access your personal information.
+			</p>
 
-      <h2 className="text-2xl font-bold">Contact</h2>
-      <p>
-        If you have any questions about these Terms, please contact us at{' '}
-        <Link
-          className="text-blue-500 italic"
-          href="mailto:giridhar.talla5139@gmail.com"
-        >
-          giridhar.talla5139@gmail.com
-        </Link>
-      </p>
-    </article>
-  )
+			<h2 className='text-2xl font-bold'>Contact</h2>
+			<p>
+				If you have any questions about these Terms, please contact us at{' '}
+				<Link
+					className='text-blue-500 italic'
+					href='mailto:giridhar.talla5139@gmail.com'>
+					giridhar.talla5139@gmail.com
+				</Link>
+			</p>
+		</article>
+	)
 }
 
 // ## Simple Privacy Policy

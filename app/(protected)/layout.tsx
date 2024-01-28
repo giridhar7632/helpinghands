@@ -19,7 +19,7 @@ export default async function AuthLayout({
 				<Link href='/'>
 					<div className='flex items-center gap-4'>
 						<Image alt='logo' src='/logo.png' width={32} height={32} />
-						<p className='text-xl leading-none'>Helping hands network</p>
+						<p className='leading-none'>Helping hands network</p>
 					</div>
 				</Link>
 				<div className='flex items-center justify-end gap-3'>
@@ -33,7 +33,7 @@ export default async function AuthLayout({
 					<ThemeToggle />
 				</div>
 			</nav>
-			<main className='flex w-full h-full flex-col items-center justify-between py-24'>
+			<main className='flex w-full h-full flex-col justify-between py-24'>
 				{children}
 			</main>
 		</div>

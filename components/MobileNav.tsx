@@ -32,8 +32,7 @@ export function MobileNav() {
 					<div className='flex flex-col gap-4 py-2 flex-1'>
 						<Link href='/dashboard'>Dashboard</Link>
 						<Link href='/explore'>Events</Link>
-						<Link href='/create'>Create new Event</Link>
-						<Link href='/profile'>Profile</Link>
+						<Link href='/events/create'>Create new Event</Link>
 					</div>
 					<SheetFooter>
 						<div className='w-full flex gap-4 sm:gap-6'>

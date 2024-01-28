@@ -38,7 +38,7 @@ export default function Error({
 						If this is not what expected, let us know{' '}
 						<Link
 							className='underline underline-offset-4 text-blue-500'
-							href='/form/contact-us'>
+							href='/contact-us'>
 							here.
 						</Link>{' '}
 					</p>
@@ -64,7 +64,7 @@ export default function Error({
 					</Link>
 					<Link
 						className='text-xs hover:underline underline-offset-4'
-						href='/form/contact-us'>
+						href='/contact-us'>
 						Contact
 					</Link>
 				</nav>

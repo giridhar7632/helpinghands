@@ -1,6 +1,9 @@
 import { MobileNav } from '@/components/MobileNav'
+import ProfileMenu from '@/components/ProfileMenu'
 import { ThemeToggle } from '@/components/theme-provider'
 import { Button } from '@/components/ui/button'
+import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
+import { Separator } from '@/components/ui/separator'
 import { auth } from '@/lib/auth'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,27 +13,29 @@ export default async function Home() {
 
 	return (
 		<div className='flex flex-col min-h-screen'>
-			<nav className='flex items-center justify-between p-4 md:px-6 md:py-4'>
+			<div className='flex items-center justify-between p-4 md:px-6 md:py-4'>
 				<Image src='/logo.png' width={32} height={32} alt='logo' />
+				<nav className='hidden md:flex h-5 items-center space-x-4'>
+					<Link href='/dashboard'>Dashboard</Link>
+					<Separator orientation='vertical' />
+
+					<Link href='/explore'>Explore Events</Link>
+					<Separator orientation='vertical' />
+
+					<Link href='/events/create'>Create new Event</Link>
+				</nav>
 				<div className='flex items-center gap-4'>
-					{session?.user ? (
-						<>
-							<nav className='hidden md:flex w-full gap-4 sm:gap-6'>
-								<Link href='/dashboard'>Dashboard</Link>
-								<Link href='/explore'>Events</Link>
-								<Link href='/create'>Create new Event</Link>
-								<Link href='/profile'>Profile</Link>
-							</nav>
-							<MobileNav />
-						</>
-					) : (
+					{!session?.user ? (
 						<Button asChild>
 							<Link href='/auth/login'>Login</Link>
 						</Button>
+					) : (
+						<ProfileMenu {...session.user} />
 					)}
+					<MobileNav />
 					<ThemeToggle />
 				</div>
-			</nav>
+			</div>
 			<main className='relative flex-1'>
 				<div className='px-4 md:px-12 py-24'>
 					<h1 className='text-4xl md:text-8xl z-10 font-extrabold'>
@@ -42,6 +47,9 @@ export default async function Home() {
 						Join Helping hands, a network of passionate individuals dedicated to
 						making a difference, one helping hand at a time.
 					</p>
+					<Button asChild size={'lg'}>
+						<Link href={'/dashboard'}>Explore now</Link>
+					</Button>
 				</div>
 
 				<Image
@@ -71,7 +79,7 @@ export default async function Home() {
 					</Link>
 					<Link
 						className='text-xs hover:underline underline-offset-4'
-						href='/form/contact-us'>
+						href='/contact-us'>
 						Contact
 					</Link>
 				</nav>

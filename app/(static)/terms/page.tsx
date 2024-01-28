@@ -3,9 +3,7 @@ import Link from 'next/link'
 export default function Terms() {
 	return (
 		<article className='px-6 space-y-6'>
-			<h1 className='text-3xl font-bold md:text-5xl/none text-gray-700 dark:text-gray-300'>
-				Terms of Service
-			</h1>
+			<h1 className='text-3xl font-bold md:text-5xl/none'>Terms of Service</h1>
 
 			<p>
 				{

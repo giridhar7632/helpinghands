@@ -9,7 +9,7 @@ export default async function AuthLayout({
 	children: React.ReactNode
 }) {
 	const session = await auth()
-	if (session?.user) redirect('/app')
+	if (session?.user) redirect('/dashboard')
 	return (
 		<div className='max-w-5xl min-h-screen px-4 lg:px-0 mx-auto overflow-x-hidden flex w-full h-full flex-col items-center justify-between'>
 			<main className='py-24'>
@@ -37,7 +37,7 @@ export default async function AuthLayout({
 					</Link>
 					<Link
 						className='text-xs hover:underline underline-offset-4'
-						href='/form/contact-us'>
+						href='/contact-us'>
 						Contact
 					</Link>
 				</nav>
