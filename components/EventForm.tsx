@@ -20,8 +20,12 @@ import CategoryDropdown from './CategoryDropdown'
 import { Textarea } from './ui/textarea'
 import FileUploader from './FileUploader'
 import { useState } from 'react'
-import { SewingPinIcon } from '@radix-ui/react-icons'
 import DatePicker from './DatePicker'
+import toast from 'react-hot-toast'
+import { useUploadThing } from '@/lib/uploadthing'
+import { createEvent } from '@/app/actions'
+import { generateSlug } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 type EventFormProps = {
 	userId?: string
@@ -37,6 +41,7 @@ export default function EventForm({
 	eventId,
 }: EventFormProps) {
 	const [files, setFiles] = useState<File[]>([])
+	const router = useRouter()
 	const initialValues =
 		event && type === 'Update'
 			? {
@@ -58,11 +63,40 @@ export default function EventForm({
 		resolver: zodResolver(eventFormSchema),
 		defaultValues: initialValues,
 	})
+	const { startUpload } = useUploadThing('imageUploader')
 
-	function onSubmit(values: z.infer<typeof eventFormSchema>) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
+	async function onSubmit(values: z.infer<typeof eventFormSchema>) {
 		console.log(values)
+		try {
+			let uploadedImageUrl = values.imageUrl
+			if (files.length > 0) {
+				const uploadedImages = await startUpload(files)
+
+				if (!uploadedImages) {
+					return
+				}
+
+				uploadedImageUrl = uploadedImages[0].url
+			}
+
+			if (type === 'Create') {
+				const newEvent = await createEvent({
+					...values,
+					imageUrl: uploadedImageUrl,
+					organizerId: userId,
+					categoryId: parseInt(values.categoryId),
+					slug: generateSlug(userId as string, values.title),
+				})
+
+				if (newEvent.slug) {
+					toast.success('Event created! 🎉')
+					router.push(`/events/${newEvent.slug}`)
+				}
+			}
+		} catch (error) {
+			console.error(error)
+			toast.error('Something went wrong \n while adding the event! 😕')
+		}
 	}
 
 	return (

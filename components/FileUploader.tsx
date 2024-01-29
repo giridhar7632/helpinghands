@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Dispatch, SetStateAction, useCallback, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback } from 'react'
 import { Button } from './ui/button'
 import { useDropzone } from '@uploadthing/react/hooks'
 import { generateClientDropzoneAccept } from 'uploadthing/client'
@@ -46,7 +46,7 @@ export default function FileUploader({
 					/>
 				</div>
 			) : (
-				<div className='flex items-center h-full justify-center flex-col py-5 text-grey-500 border-2 border-neutral-200 rounded-xl border-dashed'>
+				<div className='flex items-center h-full justify-center flex-col py-5 text-grey-500 border-2 border-neutral-200 dark:border-neutral-800 rounded-xl border-dashed'>
 					<UploadIcon
 						width={50}
 						height={50}

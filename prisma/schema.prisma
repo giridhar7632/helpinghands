@@ -17,20 +17,19 @@ model Guestbook {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -51,6 +50,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  events        events[]
 }
 
 model VerificationToken {
@@ -59,4 +59,27 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model category {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  events events[]
+}
+
+model events {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String?
+  location      String?
+  createdAt     DateTime? @default(now()) @db.Timestamptz(6)
+  imageUrl      String
+  startDateTime DateTime? @default(now()) @db.Timestamptz(6)
+  endDateTime   DateTime? @default(now()) @db.Timestamptz(6)
+  url           String?
+  categoryId    Int?
+  organizerId   String?
+  slug          String?
+  category      category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User          User?     @relation(fields: [organizerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_organizer")
 }

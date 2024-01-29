@@ -13,6 +13,6 @@ export interface IEvent {
 }
 
 export interface ICategory {
-	id: string
+	id: number
 	name: string
 }
