@@ -47,7 +47,7 @@ export default function CategoryDropdown({
 
 	return (
 		<Select defaultValue={value} onValueChange={onChangeHandler}>
-			<SelectTrigger className='w-[180px]'>
+			<SelectTrigger>
 				<SelectValue placeholder='Select a category' />
 			</SelectTrigger>
 			<SelectContent>
