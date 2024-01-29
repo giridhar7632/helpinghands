@@ -8,56 +8,6 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model Account {
-  id                  String  @id @default(cuid())
-  user_id             String
-  type                String
-  provider            String
-  provider_account_id String
-  refresh_token       String?
-  access_token        String?
-  expires_at          Int?
-  token_type          String?
-  scope               String?
-  id_token            String?
-  session_state       String?
-  oauth_token_secret  String?
-  oauth_token         String?
-  User                User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@unique([provider, provider_account_id])
-}
-
-model Session {
-  id            String   @id @default(cuid())
-  session_token String   @unique
-  user_id       String
-  expires       DateTime
-  User          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  password      String?
-  emailVerified DateTime?
-  image         String?
-  Account       Account[]
-  Liked         Liked[]
-  Order         Order[]
-  Session       Session[]
-}
-
-model VerificationToken {
-  id         Int      @id @default(autoincrement())
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
 model Guestbook {
   id            Int       @id @default(autoincrement())
   email         String?
@@ -66,20 +16,70 @@ model Guestbook {
   last_modified DateTime? @db.Date
 }
 
-model Liked {
-  id     String  @id
-  title  String
-  price  Float?
-  userId String?
-  User   User?   @relation(fields: [userId], references: [id])
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
-model Order {
-  id            String    @id
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  events        events[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model category {
+  id     Int      @id @default(autoincrement())
+  name   String   @unique
+  events events[]
+}
+
+model events {
+  id            Int       @id @default(autoincrement())
   title         String
-  price         Float?
-  sold          Boolean   @default(false)
-  userId        String?
-  purchasedDate DateTime?
-  User          User?     @relation(fields: [userId], references: [id])
+  description   String?
+  location      String?
+  createdAt     DateTime? @default(now()) @db.Timestamptz(6)
+  imageUrl      String
+  startDateTime DateTime? @default(now()) @db.Timestamptz(6)
+  endDateTime   DateTime? @default(now()) @db.Timestamptz(6)
+  url           String?
+  categoryId    Int?
+  organizerId   String?
+  slug          String?
+  category      category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User          User?     @relation(fields: [organizerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_organizer")
 }
