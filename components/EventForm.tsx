@@ -143,7 +143,7 @@ export default function EventForm({
 						render={({ field }) => (
 							<FormItem className='flex-1'>
 								<FormLabel>Description</FormLabel>
-								<FormControl className='h-48'>
+								<FormControl className='h-72'>
 									<Textarea
 										placeholder='A short description about the event...'
 										{...field}
@@ -160,7 +160,7 @@ export default function EventForm({
 						render={({ field }) => (
 							<FormItem className='flex-1'>
 								<FormLabel>Image</FormLabel>
-								<FormControl className='h-48'>
+								<FormControl className='h-72'>
 									<FileUploader
 										onChangeHandler={field.onChange}
 										value={field.value}

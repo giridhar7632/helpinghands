@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 	}))
 }
 
-export default async function EventPage({
+export default async function UpdateEvent({
 	params,
 }: {
 	params: { slug: string }
@@ -54,12 +54,12 @@ export default async function EventPage({
 				}
 			</p>
 			<Link className='mx-auto mt-6' href={'/'}>
-				<Button variant='secondary'>Go to home</Button>
+				<Button>Go to home</Button>
 			</Link>
 			<p className='text-xs text-center text-gray-400 my-4'>
 				If this is not what expected, let us know{' '}
 				<Link
-					className='underline underline-offset-4 text-blue-500'
+					className='underline underline-offset-4 text-pink-500'
 					href='/form/contact-us'>
 					here.
 				</Link>
