@@ -79,7 +79,7 @@ model events {
   url           String?
   categoryId    Int?
   organizerId   String?
-  slug          String?
+  slug          String?   @unique
   category      category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   User          User?     @relation(fields: [organizerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_organizer")
 }

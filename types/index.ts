@@ -1,15 +1,17 @@
 export interface IEvent {
-	id: string
+	id: number
 	title: string
-	description?: string
+	description: string
 	location?: string
 	createdAt: Date
 	imageUrl: string
 	startDateTime: Date
 	endDateTime: Date
 	url?: string
-	category: { id: string; name: string }
-	organizer: { id: string; Name: string }
+	slug?: string
+	categoryId: number
+	// category: { id: string; name: string }
+	// organizer: { id: string; Name: string }
 }
 
 export interface ICategory {

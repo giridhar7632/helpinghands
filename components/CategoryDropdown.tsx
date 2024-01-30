@@ -26,12 +26,12 @@ import toast from 'react-hot-toast'
 import { PlusIcon } from '@radix-ui/react-icons'
 
 type CategoryDropdownProps = {
-	value?: string
+	value?: number
 	onChangeHandler?: (value: string) => void
 }
 
 export default function CategoryDropdown({
-	value = '',
+	value,
 	onChangeHandler,
 }: CategoryDropdownProps) {
 	const [newCategory, setNewCategory] = useState<string>('')
@@ -63,7 +63,7 @@ export default function CategoryDropdown({
 	}
 
 	return (
-		<Select defaultValue={value} onValueChange={onChangeHandler}>
+		<Select defaultValue={value?.toString()} onValueChange={onChangeHandler}>
 			<SelectTrigger>
 				<SelectValue placeholder='Select a category' />
 			</SelectTrigger>

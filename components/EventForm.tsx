@@ -31,7 +31,7 @@ type EventFormProps = {
 	userId?: string
 	type: 'Create' | 'Update'
 	event?: IEvent
-	eventId?: string
+	eventId?: number
 }
 
 export default function EventForm({
@@ -44,15 +44,11 @@ export default function EventForm({
 	const router = useRouter()
 	const initialValues =
 		event && type === 'Update'
-			? {
-					...event,
-					startDateTime: new Date(event.startDateTime),
-					endDateTime: new Date(event.endDateTime),
-			  }
+			? event
 			: {
 					title: '',
 					description: '',
-					categoryId: '',
+					categoryId: 0,
 					location: '',
 					startDateTime: new Date(),
 					endDateTime: new Date(),
@@ -83,8 +79,8 @@ export default function EventForm({
 				const newEvent = await createEvent({
 					...values,
 					imageUrl: uploadedImageUrl,
+					categoryId: Number(values.categoryId),
 					organizerId: userId,
-					categoryId: parseInt(values.categoryId),
 					slug: generateSlug(userId as string, values.title),
 				})
 
