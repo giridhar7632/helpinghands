@@ -1,7 +1,29 @@
 'use server'
 
+import { auth } from '@/lib/auth'
+import { Session } from 'next-auth'
 import prisma from '@/lib/db'
-import { IEvent } from '@/types'
+
+export async function getSession(): Promise<Session> {
+	let session = await auth()
+	if (!session || !session.user) {
+		throw new Error('Unauthorized')
+	}
+
+	return session
+}
+
+export async function updateProfile(formData: FormData) {
+	const session = await getSession()
+	if (session) {
+		const res = await prisma.user.update({
+			where: { id: session.user.id },
+			data: { name: formData.get('name') as string },
+		})
+
+		return res
+	}
+}
 
 export async function addCategory(category: string) {
 	const newCategory = await prisma.category.create({
