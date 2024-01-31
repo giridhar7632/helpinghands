@@ -22,7 +22,7 @@ type ProfileMenuProps = {
 export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className='rounded-full'>
+			<DropdownMenuTrigger className='rounded-full overflow-hidden'>
 				<Image
 					width={48}
 					height={48}

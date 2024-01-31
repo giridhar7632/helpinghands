@@ -36,7 +36,6 @@ export default async function UpdateEvent({
 				type='Update'
 				event={record as IEvent}
 			/>
-			<div className='h-1 my-6 border border-gray-200 dark:border-gray-600'></div>
 		</>
 	) : (
 		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-gray-200 dark:border-gray-600 rounded-2xl p-6 md:p-12'>

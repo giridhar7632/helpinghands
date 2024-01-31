@@ -8,6 +8,7 @@ import { format } from 'date-fns'
 import { Metadata, ResolvingMetadata } from 'next'
 import { Badge } from '@/components/ui/badge'
 import { CalendarIcon, Link2Icon, SewingPinIcon } from '@radix-ui/react-icons'
+import { ShareButton } from '@/components/ShareButton'
 
 type PramsProps = {
 	params: { slug: string }
@@ -91,7 +92,9 @@ export default async function EventPage({
 
 							<div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
 								<div className='flex gap-3'>
-									<Badge variant={'outline'}>{record.category?.name}</Badge>
+									<Link href={`/category/${record.categoryId}`}>
+										<Badge variant='outline'>{record.category?.name}</Badge>
+									</Link>
 								</div>
 
 								<p className='ml-2 text-neutral-500 mt-2 sm:mt-0'>
@@ -132,6 +135,8 @@ export default async function EventPage({
 							</p>
 							<p>{record.description}</p>
 						</div>
+
+						<ShareButton link={`/events/${record.slug}`} />
 					</div>
 				</div>
 			</section>

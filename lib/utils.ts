@@ -18,7 +18,6 @@ export function generateSlug(s: string, name: string): string {
 		.toLowerCase()
 		.replace(/[^a-z0-9\-]/g, '')
 		.replace(/-+/g, '-')
-		.replace(/^|-(?!$)/g, '-')
 
 	return hash.substring(0, 5) + '-' + slug
 }

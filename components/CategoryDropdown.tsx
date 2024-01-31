@@ -26,7 +26,7 @@ import toast from 'react-hot-toast'
 import { PlusIcon } from '@radix-ui/react-icons'
 
 type CategoryDropdownProps = {
-	value?: number
+	value?: string | number
 	onChangeHandler?: (value: string) => void
 }
 
@@ -86,6 +86,7 @@ export default function CategoryDropdown({
 									type='text'
 									placeholder='Category name'
 									className='input-field mt-3'
+									value={newCategory}
 									onChange={(e) => setNewCategory(e.target.value)}
 								/>
 							</AlertDialogDescription>

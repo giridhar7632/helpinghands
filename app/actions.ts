@@ -3,6 +3,7 @@
 import { auth } from '@/lib/auth'
 import { Session } from 'next-auth'
 import prisma from '@/lib/db'
+import { IEvent } from '@/types'
 
 export async function getSession(): Promise<Session> {
 	let session = await auth()
@@ -48,4 +49,46 @@ export async function createEvent(event: any) {
 	})
 	console.log({ newEvent })
 	return newEvent
+}
+
+export async function getAllEvents({
+	query,
+	limit,
+	category,
+	page,
+}: {
+	query?: string
+	limit?: number
+	category?: number
+	page?: number
+}) {
+	const events = await prisma.events.findMany({
+		where: {
+			title: {
+				contains: query,
+			},
+			categoryId: category,
+		},
+		take: limit,
+		include: {
+			category: { select: { id: true, name: true } },
+			User: { select: { id: true, name: true } },
+		},
+	})
+	return events
+}
+
+export async function updateEvent(eventId: number, event: any) {
+	const updatedEvent = await prisma.events.update({
+		where: { id: eventId },
+		data: event,
+	})
+	return updatedEvent
+}
+
+export async function deleteEvent(eventId: number) {
+	const deletedEvent = await prisma.events.delete({
+		where: { id: eventId },
+	})
+	return deletedEvent
 }

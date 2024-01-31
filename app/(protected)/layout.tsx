@@ -35,9 +35,7 @@ export default async function AuthLayout({
 					<ThemeToggle />
 				</div>
 			</nav>
-			<main className='flex w-full h-full flex-col items-center justify-between py-24'>
-				{children}
-			</main>
+			<main className='flex w-full h-full flex-col py-24'>{children}</main>
 		</div>
 	)
 }

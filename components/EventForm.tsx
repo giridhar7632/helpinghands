@@ -23,7 +23,7 @@ import { useState } from 'react'
 import DatePicker from './DatePicker'
 import toast from 'react-hot-toast'
 import { useUploadThing } from '@/lib/uploadthing'
-import { createEvent } from '@/app/actions'
+import { createEvent, updateEvent } from '@/app/actions'
 import { generateSlug } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
@@ -44,11 +44,11 @@ export default function EventForm({
 	const router = useRouter()
 	const initialValues =
 		event && type === 'Update'
-			? event
+			? { ...event, categoryId: event.categoryId.toString() }
 			: {
 					title: '',
 					description: '',
-					categoryId: 0,
+					categoryId: '',
 					location: '',
 					startDateTime: new Date(),
 					endDateTime: new Date(),
@@ -87,6 +87,12 @@ export default function EventForm({
 				if (newEvent.slug) {
 					toast.success('Event created! 🎉')
 					router.push(`/events/${newEvent.slug}`)
+				}
+			} else if (type === 'Update') {
+				const updatedEvent = await updateEvent(eventId as number, { ...values })
+				if (updatedEvent.slug) {
+					toast.success('Event updated! 🎉')
+					router.push(`/events/${updatedEvent.slug}`)
 				}
 			}
 		} catch (error) {

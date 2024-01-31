@@ -10,17 +10,19 @@ export default async function ProfilePage() {
 	})
 
 	return (
-		<div className='w-92 sm:w-96 flex flex-col border items-center rounded-2xl p-6 md:p-12'>
-			{user ? (
-				<UserForm
-					id={user.id}
-					image={user.image}
-					email={user.email}
-					name={user.name}
-				/>
-			) : (
-				<p className='dark:text-gray-300'>User not found!</p>
-			)}
+		<div className='w-full h-full'>
+			<div className='w-92 sm:w-96 flex flex-col border items-center rounded-2xl p-6 md:p-12 mx-auto'>
+				{user ? (
+					<UserForm
+						id={user.id}
+						image={user.image}
+						email={user.email}
+						name={user.name}
+					/>
+				) : (
+					<p className='dark:text-gray-300'>User not found!</p>
+				)}
+			</div>
 		</div>
 	)
 }

@@ -10,8 +10,8 @@ export interface IEvent {
 	url?: string
 	slug?: string
 	categoryId: number
-	// category: { id: string; name: string }
-	// organizer: { id: string; Name: string }
+	category?: { id: string; name: string }
+	organizer?: { id: string; Name: string }
 }
 
 export interface ICategory {

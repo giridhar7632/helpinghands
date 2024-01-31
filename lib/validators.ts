@@ -13,6 +13,6 @@ export const eventFormSchema = z.object({
 	imageUrl: z.string(),
 	startDateTime: z.date(),
 	endDateTime: z.date(),
-	categoryId: z.number(),
+	categoryId: z.string(),
 	url: z.string().url(),
 })
