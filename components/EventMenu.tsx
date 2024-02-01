@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -19,8 +21,27 @@ import {
 } from '@/components/ui/dialog'
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { deleteEvent } from '@/app/actions'
+import toast from 'react-hot-toast'
+import { redirect } from 'next/navigation'
 
-export function EventMenu({ eventId }: { eventId: number }) {
+export function EventMenu({
+	slug,
+	eventId,
+}: {
+	slug: string
+	eventId: number
+}) {
+	const handleDelete = async () => {
+		try {
+			await deleteEvent(eventId)
+			toast.success('Event deleted!')
+			redirect('/events')
+		} catch (error) {
+			console.error(error)
+			toast.error('Something went wrong while deleting the event! 😕')
+		}
+	}
 	return (
 		<Dialog>
 			<DropdownMenu>
@@ -34,7 +55,7 @@ export function EventMenu({ eventId }: { eventId: number }) {
 					<DropdownMenuSeparator />
 					<DropdownMenuGroup>
 						<DropdownMenuItem asChild>
-							<Link href={`/events/${eventId}/update`}>Edit event</Link>
+							<Link href={`/events/${slug}/update`}>Edit event</Link>
 						</DropdownMenuItem>
 						<DialogTrigger asChild>
 							<DropdownMenuItem>
@@ -53,7 +74,9 @@ export function EventMenu({ eventId }: { eventId: number }) {
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>
-					<Button type='submit'>Confirm</Button>
+					<Button type='submit' onClick={handleDelete}>
+						Confirm
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import { Session } from 'next-auth'
 import prisma from '@/lib/db'
 import { IEvent } from '@/types'
+import { revalidatePath } from 'next/cache'
 
 export async function getSession(): Promise<Session> {
 	let session = await auth()
@@ -90,5 +91,6 @@ export async function deleteEvent(eventId: number) {
 	const deletedEvent = await prisma.events.delete({
 		where: { id: eventId },
 	})
+	revalidatePath('/dashboard')
 	return deletedEvent
 }

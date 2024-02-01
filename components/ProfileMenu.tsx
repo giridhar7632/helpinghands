@@ -39,11 +39,13 @@ export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
-					<Link href='/profile'>Profile</Link>
+					<Link className='cursor-pointer' href='/profile'>
+						Profile
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					className='flex items-center gap-2'
+					className='flex items-center gap-2 cursor-pointer'
 					onClick={() => signOut({ callbackUrl: '/' })}>
 					<ExitIcon width={18} />
 					<span>Sign out</span>

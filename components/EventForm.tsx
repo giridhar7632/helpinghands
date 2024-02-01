@@ -89,7 +89,10 @@ export default function EventForm({
 					router.push(`/events/${newEvent.slug}`)
 				}
 			} else if (type === 'Update') {
-				const updatedEvent = await updateEvent(eventId as number, { ...values })
+				const updatedEvent = await updateEvent(eventId as number, {
+					...values,
+					categoryId: Number(values.categoryId),
+				})
 				if (updatedEvent.slug) {
 					toast.success('Event updated! 🎉')
 					router.push(`/events/${updatedEvent.slug}`)
@@ -237,7 +240,7 @@ export default function EventForm({
 						name='url'
 						render={({ field }) => (
 							<FormItem className='w-full'>
-								<FormLabel>Location</FormLabel>
+								<FormLabel>Link to your event website or socials</FormLabel>
 								<FormControl>
 									<Input
 										type='url'

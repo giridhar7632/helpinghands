@@ -66,7 +66,7 @@ export default async function Home() {
 					Find the event that suits you
 				</h2>
 				<Collection
-					data={[...data, ...data, ...data]}
+					data={data}
 					emptyTitle='No events added yet'
 					emptyStateSubtext='Please check back later! 😇'
 					page={1}

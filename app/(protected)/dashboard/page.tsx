@@ -8,6 +8,7 @@ export default async function dashboard() {
 	const session = await auth()
 	const data = await prisma.events.findMany({
 		where: { organizerId: session?.user?.id },
+		include: { category: { select: { name: true } } },
 	})
 
 	return (

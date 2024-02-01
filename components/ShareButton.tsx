@@ -25,7 +25,7 @@ export function ShareButton({ link }: { link: string }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button variant='outline'>Share</Button>
+				<Button>Share</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>

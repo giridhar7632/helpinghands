@@ -9,6 +9,8 @@ import { Metadata, ResolvingMetadata } from 'next'
 import { Badge } from '@/components/ui/badge'
 import { CalendarIcon, Link2Icon, SewingPinIcon } from '@radix-ui/react-icons'
 import { ShareButton } from '@/components/ShareButton'
+import { auth } from '@/lib/auth'
+import { DeleteEvent } from '@/components/DeleteEvent'
 
 type PramsProps = {
 	params: { slug: string }
@@ -65,6 +67,7 @@ export default async function EventPage({
 }: {
 	params: { slug: string }
 }) {
+	const session = await auth()
 	const record = await prisma.events.findUnique({
 		where: { slug: params.slug },
 		include: {
@@ -74,15 +77,26 @@ export default async function EventPage({
 	})
 	return record ? (
 		<>
-			<section className='flex justify-center bg-neutral-50 bg-dotted-pattern bg-contain'>
+			<section className='flex justify-center bg-neutral-50 dark:bg-neutral-800 bg-dotted-pattern bg-contain'>
 				<div className='grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl'>
-					<Image
-						src={record.imageUrl}
-						alt='hero image'
-						width={1000}
-						height={1000}
-						className='h-full min-h-[300px] object-cover object-center'
-					/>
+					<div className='relative min-h-[300px]'>
+						<Image
+							src={record.imageUrl}
+							alt='hero image'
+							width={1000}
+							height={1000}
+							className='h-full object-cover object-center'
+						/>
+						{session?.user && session?.user?.id === record.organizerId ? (
+							<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl bg-white p-3 shadow-sm transition-all'>
+								{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
+								<Link href={`/events/${record.slug}/update`}>Update event</Link>
+								<DeleteEvent eventId={record.id}>
+									<span className='text-red-500'>Delete</span>
+								</DeleteEvent>
+							</div>
+						) : null}
+					</div>
 
 					<div className='flex w-full flex-col gap-8 p-5 md:p-10'>
 						<div className='flex flex-col gap-6'>
@@ -123,10 +137,13 @@ export default async function EventPage({
 								<p>{record.location}</p>
 							</div>
 
-							<div className='flex items-center gap-3'>
+							<Link
+								href={record.url as string}
+								target='_blank'
+								className='flex items-center gap-3'>
 								<Link2Icon />
 								<p className='truncate text-pink-500 underline'>{record.url}</p>
-							</div>
+							</Link>
 						</div>
 
 						<div className='flex flex-col gap-3'>
