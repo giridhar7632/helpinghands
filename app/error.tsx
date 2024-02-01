@@ -37,7 +37,7 @@ export default function Error({
 					<p className='text-xs text-center text-neutral-400 my-4'>
 						If this is not what expected, let us know{' '}
 						<Link
-							className='underline underline-offset-4 text-blue-500'
+							className='underline underline-offset-4 text-pink-500'
 							href='/contact-us'>
 							here.
 						</Link>{' '}

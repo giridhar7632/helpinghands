@@ -5,7 +5,7 @@ export default async function CreateEvent() {
 	const session = await auth()
 	return (
 		<>
-			<h1 className='text-3xl font-bold md:text-5xl/none mb-4'>
+			<h1 className='text-3xl font-bold md:text-5xl/none mb-12'>
 				Create a new event
 			</h1>
 			<EventForm type='Create' userId={session?.user?.id} />

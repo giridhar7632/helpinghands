@@ -32,7 +32,7 @@ export default function Policy() {
 			<p>
 				If you have any questions about these Terms, please contact us at{' '}
 				<Link
-					className='text-blue-500 italic'
+					className='text-pink-500 italic'
 					href='mailto:giridhar.talla5139@gmail.com'>
 					giridhar.talla5139@gmail.com
 				</Link>

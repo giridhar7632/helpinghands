@@ -26,6 +26,10 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'us-east-1.storage.xata.sh',
 			},
+			{
+				protocol: 'https',
+				hostname: 'utfs.io',
+			},
 		],
 	},
 	experimental: {

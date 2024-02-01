@@ -22,7 +22,7 @@ type ProfileMenuProps = {
 export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className='rounded-full'>
+			<DropdownMenuTrigger className='rounded-full overflow-hidden'>
 				<Image
 					width={48}
 					height={48}
@@ -38,19 +38,17 @@ export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 					<div className='truncate text-gray-500'>{email}</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem>
-					<Link href='/profile'>Profile</Link>
+				<DropdownMenuItem asChild>
+					<Link className='cursor-pointer' href='/profile'>
+						Profile
+					</Link>
 				</DropdownMenuItem>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem
-					className='flex items-center gap-2'
+					className='flex items-center gap-2 cursor-pointer'
 					onClick={() => signOut({ callbackUrl: '/' })}>
-					{/* <button
-						onClick={() => signOut({ callbackUrl: '/' })}
-						className='flex w-full items-center gap-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-900'> */}
 					<ExitIcon width={18} />
 					<span>Sign out</span>
-					{/* </button> */}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>

@@ -25,7 +25,7 @@ export const EmailLogin = () => {
 			action={async (formData) => {
 				await signIn('email', {
 					email: formData.get('email'),
-					callbackUrl: callbackUrl || `/app`,
+					callbackUrl: callbackUrl || `/dashboard`,
 				})
 				formRef.current?.reset()
 			}}
@@ -56,7 +56,7 @@ export const SocialLogin = ({ type }: SocialLoginProps) => {
 			variant='outline'
 			onClick={() => {
 				signIn(type.toLowerCase(), {
-					callbackUrl: callbackUrl || `/app`,
+					callbackUrl: callbackUrl || `/dashboard`,
 				})
 			}}>
 			<Provider id={type} /> {type}

@@ -23,7 +23,7 @@ import { useState } from 'react'
 import DatePicker from './DatePicker'
 import toast from 'react-hot-toast'
 import { useUploadThing } from '@/lib/uploadthing'
-import { createEvent } from '@/app/actions'
+import { createEvent, updateEvent } from '@/app/actions'
 import { generateSlug } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 
@@ -31,7 +31,7 @@ type EventFormProps = {
 	userId?: string
 	type: 'Create' | 'Update'
 	event?: IEvent
-	eventId?: string
+	eventId?: number
 }
 
 export default function EventForm({
@@ -44,11 +44,7 @@ export default function EventForm({
 	const router = useRouter()
 	const initialValues =
 		event && type === 'Update'
-			? {
-					...event,
-					startDateTime: new Date(event.startDateTime),
-					endDateTime: new Date(event.endDateTime),
-			  }
+			? { ...event, categoryId: event.categoryId.toString() }
 			: {
 					title: '',
 					description: '',
@@ -83,14 +79,23 @@ export default function EventForm({
 				const newEvent = await createEvent({
 					...values,
 					imageUrl: uploadedImageUrl,
+					categoryId: Number(values.categoryId),
 					organizerId: userId,
-					categoryId: parseInt(values.categoryId),
 					slug: generateSlug(userId as string, values.title),
 				})
 
 				if (newEvent.slug) {
 					toast.success('Event created! 🎉')
 					router.push(`/events/${newEvent.slug}`)
+				}
+			} else if (type === 'Update') {
+				const updatedEvent = await updateEvent(eventId as number, {
+					...values,
+					categoryId: Number(values.categoryId),
+				})
+				if (updatedEvent.slug) {
+					toast.success('Event updated! 🎉')
+					router.push(`/events/${updatedEvent.slug}`)
 				}
 			}
 		} catch (error) {
@@ -147,7 +152,7 @@ export default function EventForm({
 						render={({ field }) => (
 							<FormItem className='flex-1'>
 								<FormLabel>Description</FormLabel>
-								<FormControl className='h-48'>
+								<FormControl className='h-72'>
 									<Textarea
 										placeholder='A short description about the event...'
 										{...field}
@@ -164,7 +169,7 @@ export default function EventForm({
 						render={({ field }) => (
 							<FormItem className='flex-1'>
 								<FormLabel>Image</FormLabel>
-								<FormControl className='h-48'>
+								<FormControl className='h-72'>
 									<FileUploader
 										onChangeHandler={field.onChange}
 										value={field.value}
@@ -235,7 +240,7 @@ export default function EventForm({
 						name='url'
 						render={({ field }) => (
 							<FormItem className='w-full'>
-								<FormLabel>Location</FormLabel>
+								<FormLabel>Link to your event website or socials</FormLabel>
 								<FormControl>
 									<Input
 										type='url'

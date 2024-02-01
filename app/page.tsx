@@ -1,15 +1,17 @@
+import Collection from '@/components/Collection'
 import { MobileNav } from '@/components/MobileNav'
 import ProfileMenu from '@/components/ProfileMenu'
 import { ThemeToggle } from '@/components/theme-provider'
 import { Button } from '@/components/ui/button'
-import { DropdownMenuSeparator } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
 import { auth } from '@/lib/auth'
 import Image from 'next/image'
 import Link from 'next/link'
+import { getAllEvents } from './actions'
 
 export default async function Home() {
 	const session = await auth()
+	const data = await getAllEvents({ query: '', limit: 6, page: 1 })
 
 	return (
 		<div className='flex flex-col min-h-screen'>
@@ -36,7 +38,7 @@ export default async function Home() {
 					<ThemeToggle />
 				</div>
 			</div>
-			<main className='relative flex-1'>
+			<main className='relative flex-1 min-h-[80vh]'>
 				<div className='px-4 md:px-12 py-24'>
 					<h1 className='text-4xl md:text-8xl z-10 font-extrabold'>
 						Lend a Hand,
@@ -59,6 +61,19 @@ export default async function Home() {
 					fill={true}
 				/>
 			</main>
+			<section className='my-8 flex flex-col gap-8 md:gap-12 px-12'>
+				<h2 className='text-2xl md:text-4xl font-bold'>
+					Find the event that suits you
+				</h2>
+				<Collection
+					data={data}
+					emptyTitle='No events added yet'
+					emptyStateSubtext='Please check back later! 😇'
+					page={1}
+					limit={6}
+					totalPages={1}
+				/>
+			</section>
 			<footer className='flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t dark:border-neutral-600'>
 				<div className='flex gap-2 items-center'>
 					<Image src='/heart.svg' width={24} height={24} alt='logo' />

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { MobileNav } from '@/components/MobileNav'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-provider'
+import ProfileMenu from '@/components/ProfileMenu'
 
 export default async function AuthLayout({
 	children,
@@ -24,18 +25,17 @@ export default async function AuthLayout({
 				</Link>
 				<div className='flex items-center justify-end gap-3'>
 					{session?.user ? (
-						<MobileNav />
+						<ProfileMenu {...session.user} />
 					) : (
 						<Link href={'/auth/login'}>
 							<Button>Login</Button>
 						</Link>
 					)}
+					<MobileNav />
 					<ThemeToggle />
 				</div>
 			</nav>
-			<main className='flex w-full h-full flex-col justify-between py-24'>
-				{children}
-			</main>
+			<main className='flex w-full h-full flex-col py-24'>{children}</main>
 		</div>
 	)
 }
