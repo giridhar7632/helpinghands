@@ -5,6 +5,8 @@ import prisma from '@/lib/db'
 import { Button } from '@/components/ui/button'
 import EventForm from '@/components/EventForm'
 import { IEvent } from '@/types'
+import { auth } from '@/lib/auth'
+import { redirect } from 'next/navigation'
 
 export async function generateStaticParams() {
 	const events = await prisma.events.findMany()
@@ -19,6 +21,9 @@ export default async function UpdateEvent({
 }: {
 	params: { slug: string }
 }) {
+	const session = await auth()
+	if (!session?.user) redirect('/auth/login')
+
 	const record = await prisma.events.findUnique({
 		where: { slug: params.slug },
 	})
