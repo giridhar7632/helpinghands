@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 import { auth } from '@/lib/auth'
 import { DeleteEvent } from './DeleteEvent'
+import { toSlug } from '@/lib/utils'
 
 type EventCardProps = {
 	event: any
@@ -32,11 +33,14 @@ export default async function EventCard({ event }: EventCardProps) {
 				<p className='text-neutral-500'>
 					{format(event.startDateTime as Date, 'PPP')}
 				</p>
-				<Link href={`/category/${event.categoryId}`}>
+				<Link
+					href={`/category/${event.categoryId}-${toSlug(
+						event.category?.name || ''
+					)}`}>
 					<Badge variant='outline'>{event.category?.name}</Badge>
 				</Link>
 				{session?.user && session?.user?.id === event.organizerId ? (
-					<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl bg-white p-3 shadow-sm transition-all'>
+					<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl bg-white dark:bg-neutral-900 border p-3 shadow-sm transition-all'>
 						{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
 						<Link href={`/events/${event.slug}/update`}>Update event</Link>
 						<DeleteEvent eventId={event.id}>

@@ -11,6 +11,8 @@ import { CalendarIcon, Link2Icon, SewingPinIcon } from '@radix-ui/react-icons'
 import { ShareButton } from '@/components/ShareButton'
 import { auth } from '@/lib/auth'
 import { DeleteEvent } from '@/components/DeleteEvent'
+import { toSlug } from '@/lib/utils'
+import Collection from '@/components/Collection'
 
 type PramsProps = {
 	params: { slug: string }
@@ -75,6 +77,13 @@ export default async function EventPage({
 			User: { select: { id: true, name: true, email: true } },
 		},
 	})
+	const related = await prisma.events.findMany({
+		where: { categoryId: record?.categoryId, NOT: { id: record?.id } },
+		include: {
+			category: { select: { id: true, name: true } },
+			User: { select: { id: true, name: true, email: true } },
+		},
+	})
 	return record ? (
 		<>
 			<section className='flex justify-center bg-neutral-50 dark:bg-neutral-800 bg-dotted-pattern bg-contain'>
@@ -88,7 +97,7 @@ export default async function EventPage({
 							className='h-full object-cover object-center'
 						/>
 						{session?.user && session?.user?.id === record.organizerId ? (
-							<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl bg-white p-3 shadow-sm transition-all'>
+							<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl border bg-white dark:bg-neutral-900 p-3 shadow-sm transition-all'>
 								{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
 								<Link href={`/events/${record.slug}/update`}>Update event</Link>
 								<DeleteEvent eventId={record.id}>
@@ -106,7 +115,10 @@ export default async function EventPage({
 
 							<div className='flex flex-col gap-3 sm:flex-row sm:items-center'>
 								<div className='flex gap-3'>
-									<Link href={`/category/${record.categoryId}`}>
+									<Link
+										href={`/category/${record.categoryId}-${toSlug(
+											record.category?.name || ''
+										)}`}>
 										<Badge variant='outline'>{record.category?.name}</Badge>
 									</Link>
 								</div>
@@ -156,6 +168,19 @@ export default async function EventPage({
 						<ShareButton link={`/events/${record.slug}`} />
 					</div>
 				</div>
+			</section>
+			<section className='my-8 flex flex-col gap-8 md:gap-12'>
+				<h2 className='text-2xl md:text-4xl font-bold'>
+					Find more similar events:
+				</h2>
+				<Collection
+					data={related}
+					emptyTitle='No events added yet'
+					emptyStateSubtext='Organise one by click the above button! 😇'
+					page={1}
+					limit={6}
+					totalPages={1}
+				/>
 			</section>
 		</>
 	) : (
