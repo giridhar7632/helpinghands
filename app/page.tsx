@@ -61,9 +61,9 @@ export default async function Home() {
 					fill={true}
 				/>
 			</main>
-			<section className='my-8 flex flex-col gap-8 md:gap-12 px-12'>
+			<section className='my-8 flex flex-col gap-8 md:gap-12 px-6 py-12 md:px-12 bg-neutral-50 dark:bg-neutral-800'>
 				<h2 className='text-2xl md:text-4xl font-bold'>
-					Find the event that suits you
+					Find the next event that might suit you
 				</h2>
 				<Collection
 					data={data}

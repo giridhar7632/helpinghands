@@ -29,20 +29,18 @@ export default async function dashboard() {
 					</Button>
 				</div>
 			</div>
-			<section>
-				<section className='my-8 flex flex-col gap-8 md:gap-12'>
-					<h2 className='text-2xl md:text-4xl font-bold'>
-						Events you organized:
-					</h2>
-					<Collection
-						data={data}
-						emptyTitle='No events added yet'
-						emptyStateSubtext='Organise one by click the above button! 😇'
-						page={1}
-						limit={6}
-						totalPages={1}
-					/>
-				</section>
+			<section className='my-8 flex flex-col gap-8 md:gap-12'>
+				<h2 className='text-2xl md:text-4xl font-bold'>
+					Events you organized:
+				</h2>
+				<Collection
+					data={data}
+					emptyTitle='No events added yet'
+					emptyStateSubtext='Organise one by click the above button! 😇'
+					page={1}
+					limit={6}
+					totalPages={1}
+				/>
 			</section>
 		</main>
 	)

@@ -25,7 +25,7 @@ export default function Collection({
 	return (
 		<>
 			{data.length > 0 ? (
-				<div className='flex items-center flex-col gap-10 px-12 py-6 bg-neutral-50 dark:bg-neutral-800'>
+				<div className='flex items-center flex-col gap-10 p-2 md:p-0'>
 					<ul className='grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10'>
 						{data.map((event: IEvent) => (
 							<li key={event.id}>
