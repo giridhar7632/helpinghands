@@ -1,16 +1,17 @@
-// import { auth } from "@/lib/auth"
+import { auth } from '@/lib/auth'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ThemeToggle } from '@/components/theme-provider'
-// import Button from "@/components/Button"
-// import ProfileMenu from "@/components/ProfileMenu"
+import ProfileMenu from '@/components/ProfileMenu'
+import { Button } from '@/components/ui/button'
+import { MobileNav } from '@/components/MobileNav'
 
 export default async function AuthLayout({
 	children,
 }: {
 	children: React.ReactNode
 }) {
-	// const session = await auth()
+	const session = await auth()
 	return (
 		<div className='max-w-5xl min-h-screen px-4 mx-auto overflow-x-hidden flex flex-col justify-between'>
 			<nav className='flex py-4 items-center justify-between'>
@@ -20,7 +21,17 @@ export default async function AuthLayout({
 						<p className='leading-none'>Helping hands network</p>
 					</div>
 				</Link>
-				<ThemeToggle />
+				<div className='flex items-center gap-4'>
+					{session?.user ? (
+						<ProfileMenu {...session.user} />
+					) : (
+						<Button asChild>
+							<Link href='/auth/login'>Login</Link>
+						</Button>
+					)}
+					<MobileNav />
+					<ThemeToggle />
+				</div>
 			</nav>
 			<main className='flex-1 w-full h-full py-24'>{children}</main>
 			<footer className='flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t dark:border-neutral-600'>

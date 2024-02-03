@@ -42,6 +42,9 @@ export default async function EventCard({ event }: EventCardProps) {
 				{session?.user && session?.user?.id === event.organizerId ? (
 					<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl bg-white dark:bg-neutral-900 border p-3 shadow-sm transition-all'>
 						{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
+						<Link href={`/events/${event.slug}/registrations`}>
+							View registrations
+						</Link>
 						<Link href={`/events/${event.slug}/update`}>Update event</Link>
 						<DeleteEvent eventId={event.id}>
 							<span className='text-red-500'>Delete</span>

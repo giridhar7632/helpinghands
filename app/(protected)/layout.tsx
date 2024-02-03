@@ -23,13 +23,13 @@ export default async function AuthLayout({
 						<p className='leading-none'>Helping hands network</p>
 					</div>
 				</Link>
-				<div className='flex items-center justify-end gap-3'>
+				<div className='flex items-center gap-4'>
 					{session?.user ? (
 						<ProfileMenu {...session.user} />
 					) : (
-						<Link href={'/auth/login'}>
-							<Button>Login</Button>
-						</Link>
+						<Button asChild>
+							<Link href='/auth/login'>Login</Link>
+						</Button>
 					)}
 					<MobileNav />
 					<ThemeToggle />

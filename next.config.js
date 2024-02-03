@@ -30,6 +30,10 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'utfs.io',
 			},
+			{
+				protocol: 'https',
+				hostname: 'example.com',
+			},
 		],
 	},
 	experimental: {

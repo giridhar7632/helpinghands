@@ -8,10 +8,11 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ExitIcon } from '@radix-ui/react-icons'
 import { signOut } from 'next-auth/react'
-import Image from 'next/image'
 import Link from 'next/link'
+import { getInitials } from '@/lib/utils'
 
 type ProfileMenuProps = {
 	name?: string | null | undefined
@@ -23,21 +24,23 @@ export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className='rounded-full overflow-hidden'>
-				<Image
-					width={48}
-					height={48}
-					className='h-12 w-12'
-					src={image || 'https://api.multiavatar.com/v.png'}
-					alt={name || 'Avatar'}
-				/>
+				<Avatar>
+					<AvatarImage src={image || ''} alt={name || ''} />
+					<AvatarFallback>{getInitials(name || '')}</AvatarFallback>
+				</Avatar>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuLabel>
-					<div className='text-xs text-gray-400'>Logged in as:</div>
+					<div className='text-xs text-neutral-400'>Logged in as:</div>
 					<div className='font-semibold mt-2'>{name}</div>
-					<div className='truncate text-gray-500'>{email}</div>
+					<div className='truncate text-neutral-500'>{email}</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
+				<DropdownMenuItem asChild>
+					<Link className='cursor-pointer' href='/dashboard'>
+						Dashboard
+					</Link>
+				</DropdownMenuItem>
 				<DropdownMenuItem asChild>
 					<Link className='cursor-pointer' href='/profile'>
 						Profile

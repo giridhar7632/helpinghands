@@ -20,7 +20,7 @@ export default async function ProfilePage() {
 						name={user.name}
 					/>
 				) : (
-					<p className='dark:text-gray-300'>User not found!</p>
+					<p className='dark:text-neutral-300'>User not found!</p>
 				)}
 			</div>
 		</div>

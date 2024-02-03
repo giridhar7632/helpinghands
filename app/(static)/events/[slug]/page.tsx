@@ -13,6 +13,7 @@ import { auth } from '@/lib/auth'
 import { DeleteEvent } from '@/components/DeleteEvent'
 import { toSlug } from '@/lib/utils'
 import Collection from '@/components/Collection'
+import { RegisterForEvent } from '@/components/RegisterForEvent'
 
 type PramsProps = {
 	params: { slug: string }
@@ -99,6 +100,9 @@ export default async function EventPage({
 						{session?.user && session?.user?.id === record.organizerId ? (
 							<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl border bg-white dark:bg-neutral-900 p-3 shadow-sm transition-all'>
 								{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
+								<Link href={`/events/${record.slug}/registrations`}>
+									View Registrations
+								</Link>
 								<Link href={`/events/${record.slug}/update`}>Update event</Link>
 								<DeleteEvent eventId={record.id}>
 									<span className='text-red-500'>Delete</span>
@@ -165,7 +169,17 @@ export default async function EventPage({
 							<p>{record.description}</p>
 						</div>
 
-						<ShareButton link={`/events/${record.slug}`} />
+						<div className='flex flex-col gap-3'>
+							{session?.user &&
+							session?.user?.id === record.organizerId ? null : (
+								<RegisterForEvent
+									event='event'
+									eventId={record.id}
+									userId={session?.user.id as string}
+								/>
+							)}
+							<ShareButton link={`/events/${record.slug}`} />
+						</div>
 					</div>
 				</div>
 			</section>
@@ -175,8 +189,8 @@ export default async function EventPage({
 				</h2>
 				<Collection
 					data={related}
-					emptyTitle='No events added yet'
-					emptyStateSubtext='Organise one by click the above button! 😇'
+					emptyTitle='No more events added yet'
+					emptyStateSubtext='Please check later! 😇'
 					page={1}
 					limit={6}
 					totalPages={1}
@@ -184,7 +198,7 @@ export default async function EventPage({
 			</section>
 		</>
 	) : (
-		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-gray-200 dark:border-gray-600 rounded-2xl p-6 md:p-12'>
+		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-neutral-200 dark:border-neutral-600 rounded-2xl p-6 md:p-12'>
 			<Image
 				className='mx-auto'
 				width={72}
@@ -201,7 +215,7 @@ export default async function EventPage({
 			<Link className='mx-auto mt-6' href={'/'}>
 				<Button>Go to home</Button>
 			</Link>
-			<p className='text-xs text-center text-gray-400 my-4'>
+			<p className='text-xs text-center text-neutral-400 my-4'>
 				If this is not what expected, let us know{' '}
 				<Link
 					className='underline underline-offset-4 text-pink-500'

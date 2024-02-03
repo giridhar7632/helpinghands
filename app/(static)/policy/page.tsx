@@ -3,7 +3,9 @@ import Link from 'next/link'
 export default function Policy() {
 	return (
 		<article className='px-6 space-y-6'>
-			<h1 className='text-3xl font-bold md:text-5xl/none'>Privacy Policy</h1>
+			<h1 className='text-3xl mb-12 font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
+				Privacy Policy
+			</h1>
 			<p>
 				{
 					'We care about your privacy! This Privacy Policy explains how we collect, use, and share your information when you use our platform and services ("Services")'
