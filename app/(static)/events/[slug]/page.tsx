@@ -100,6 +100,9 @@ export default async function EventPage({
 						{session?.user && session?.user?.id === record.organizerId ? (
 							<div className='absolute right-2 top-2 flex flex-col text-right gap-4 rounded-xl border bg-white dark:bg-neutral-900 p-3 shadow-sm transition-all'>
 								{/* <EventMenu slug={event.slug} eventId={event.id} /> */}
+								<Link href={`/events/${record.slug}/registrations`}>
+									View Registrations
+								</Link>
 								<Link href={`/events/${record.slug}/update`}>Update event</Link>
 								<DeleteEvent eventId={record.id}>
 									<span className='text-red-500'>Delete</span>
