@@ -1,21 +1,22 @@
-import Collection from '@/components/Collection'
-import { MobileNav } from '@/components/MobileNav'
-import ProfileMenu from '@/components/ProfileMenu'
-import { ThemeToggle } from '@/components/theme-provider'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import { Badge } from '@/components/ui/badge'
+import Collection from '@/components/Collection'
 import { Separator } from '@/components/ui/separator'
 import { auth } from '@/lib/auth'
-import Image from 'next/image'
-import Link from 'next/link'
+import ProfileMenu from '@/components/ProfileMenu'
+import { MobileNav } from '@/components/MobileNav'
+import { ThemeToggle } from '@/components/theme-provider'
 import { getAllEvents } from './actions'
 
-export default async function Home() {
+export default async function Component() {
 	const session = await auth()
 	const data = await getAllEvents({ query: '', limit: 6, page: 1 })
-
+	// seedEvents()
 	return (
-		<div className='flex flex-col min-h-screen'>
-			<div className='flex items-center justify-between p-4 md:px-6 md:py-4'>
+		<>
+			<header className='flex items-center justify-between p-4 md:px-6 md:py-4'>
 				<Image src='/logo.png' width={32} height={32} alt='logo' />
 				<nav className='hidden md:flex h-5 items-center space-x-4'>
 					<Link href='/dashboard'>Dashboard</Link>
@@ -27,52 +28,85 @@ export default async function Home() {
 					<Link href='/events/create'>Create new Event</Link>
 				</nav>
 				<div className='flex items-center gap-4'>
-					{!session?.user ? (
+					{session?.user ? (
+						<ProfileMenu {...session.user} />
+					) : (
 						<Button asChild>
 							<Link href='/auth/login'>Login</Link>
 						</Button>
-					) : (
-						<ProfileMenu {...session.user} />
 					)}
 					<MobileNav />
 					<ThemeToggle />
 				</div>
-			</div>
-			<main className='relative flex-1 min-h-[80vh]'>
-				<div className='px-4 md:px-12 py-24'>
-					<h1 className='text-4xl md:text-8xl z-10 font-extrabold'>
-						Lend a Hand,
-						<br />
-						Build a Heartbeat!
-					</h1>
-					<p className='text-xl my-4'>
-						Join Helping hands, a network of passionate individuals dedicated to
-						making a difference, one helping hand at a time.
-					</p>
-					<Button asChild size={'lg'}>
-						<Link href={'/dashboard'}>Explore now</Link>
-					</Button>
+			</header>
+			<section className='w-full py-12'>
+				<div className='container px-4 md:px-6'>
+					<div className='grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]'>
+						<Image
+							alt='Hero'
+							className='mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square'
+							height='550'
+							src='/hands.png'
+							width='550'
+						/>
+						<div className='flex flex-col justify-center space-y-4'>
+							<div className='space-y-2'>
+								<h1 className='text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
+									Lend a Hand, Build a Heartbeat!
+								</h1>
+								<p className='max-w-[600px] text-neutral-500 md:text-xl dark:text-neutral-400'>
+									Join Helping hands, a network of passionate individuals
+									dedicated to making a difference, one helping hand at a time.
+								</p>
+							</div>
+							<div className='flex flex-col gap-2 min-[400px]:flex-row'>
+								<Button asChild size={'lg'}>
+									<Link href={'/dashboard'}>Explore now</Link>
+								</Button>
+							</div>
+						</div>
+					</div>
 				</div>
-
-				<Image
-					src='/hands.png'
-					alt='hero'
-					className='-z-10 pt-12 md:pt-16 md:pl-16 object-contain h-full'
-					fill={true}
-				/>
-			</main>
-			<section className='my-8 flex flex-col gap-8 md:gap-12 px-6 py-12 md:px-12 bg-neutral-50 dark:bg-neutral-800'>
-				<h2 className='text-2xl md:text-4xl font-bold'>
-					Find the next event that might suit you
-				</h2>
-				<Collection
-					data={data}
-					emptyTitle='No events added yet'
-					emptyStateSubtext='Please check back later! 😇'
-					page={1}
-					limit={6}
-					totalPages={1}
-				/>
+			</section>
+			<section className='w-full py-12 md:py-24 lg:py-32 bg-neutral-100 dark:bg-neutral-900'>
+				<div className='container px-4 md:px-6'>
+					<div className='flex flex-col items-center justify-center space-y-4 text-center'>
+						<div className='space-y-2'>
+							<Badge>Upcoming Events</Badge>
+							<h2 className='text-3xl font-bold tracking-tighter sm:text-5xl'>
+								{"Don't Miss Out On These Events"}
+							</h2>
+						</div>
+					</div>
+					<div className='mx-auto max-w-5xl py-12'>
+						<Collection
+							data={data}
+							emptyTitle='No events added yet'
+							emptyStateSubtext='Please check back later! 😇'
+							page={1}
+							limit={6}
+							totalPages={1}
+						/>
+					</div>
+				</div>
+			</section>
+			<section className='w-full py-12 md:py-24 lg:py-32'>
+				<div className='container grid items-center gap-6 px-4 md:px-6 lg:grid-cols-2 lg:gap-10'>
+					<div className='space-y-2'>
+						<h2 className='text-3xl font-bold tracking-tighter md:text-4xl/tight'>
+							{"Organizers, We've Got You Covered"}
+						</h2>
+						<p className='max-w-[600px] text-neutral-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-neutral-400'>
+							View volunteer registration details and select volunteers for your
+							events with ease.
+						</p>
+					</div>
+					<div className='flex flex-col gap-2 min-[400px]:flex-row lg:justify-end'>
+						<Button asChild size={'lg'}>
+							<Link href='/events/create'>Organize an event</Link>
+						</Button>
+					</div>
+				</div>
 			</section>
 			<footer className='flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t dark:border-neutral-600'>
 				<div className='flex gap-2 items-center'>
@@ -99,6 +133,6 @@ export default async function Home() {
 					</Link>
 				</nav>
 			</footer>
-		</div>
+		</>
 	)
 }

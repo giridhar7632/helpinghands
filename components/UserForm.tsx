@@ -2,12 +2,13 @@
 
 import { updateProfile } from '@/app/actions'
 import { Pencil1Icon } from '@radix-ui/react-icons'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { getInitials } from '@/lib/utils'
 
 type UserFormProps = {
 	image?: string | null
@@ -63,13 +64,11 @@ const UserForm = ({ id, image, name, email }: UserFormProps) => {
 				setLoading(false)
 			}}>
 			<div className='relative flex items-center justify-center mx-auto mb-4 h-36 w-36 overflow-hidden cursor-pointer'>
-				<Image
-					fill={true}
-					className='rounded-full bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-600 object-cover'
-					src={previewImage || image || 'https://api.multiavatar.com/v.png'}
-					alt='upload image'
-				/>
-				<div className='absolute right-0 p-1 bottom-0 mr-2 mb-2 h-8 w-8 border-2 border-white bg-gray-100 rounded-full text-gray-500'>
+				<Avatar className='h-36 w-36'>
+					<AvatarImage src={image || ''} alt={name || ''} />
+					<AvatarFallback>{getInitials(name || '')}</AvatarFallback>
+				</Avatar>
+				<div className='absolute right-0 p-1 bottom-0 mr-2 mb-2 h-8 w-8 border-2 border-white bg-neutral-100 rounded-full text-neutral-500'>
 					<Pencil1Icon className='h-5 w-5' />
 				</div>
 				<input
@@ -91,7 +90,7 @@ const UserForm = ({ id, image, name, email }: UserFormProps) => {
 				Update profile
 			</Button>
 
-			<p className='text-xs text-center text-gray-400 my-4'>
+			<p className='text-xs text-center text-neutral-400 my-4'>
 				You can see your public profile{' '}
 				<Link
 					className='underline underline-offset-4 text-pink-500'

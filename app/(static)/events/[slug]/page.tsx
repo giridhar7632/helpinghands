@@ -195,7 +195,7 @@ export default async function EventPage({
 			</section>
 		</>
 	) : (
-		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-gray-200 dark:border-gray-600 rounded-2xl p-6 md:p-12'>
+		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-neutral-200 dark:border-neutral-600 rounded-2xl p-6 md:p-12'>
 			<Image
 				className='mx-auto'
 				width={72}
@@ -212,7 +212,7 @@ export default async function EventPage({
 			<Link className='mx-auto mt-6' href={'/'}>
 				<Button>Go to home</Button>
 			</Link>
-			<p className='text-xs text-center text-gray-400 my-4'>
+			<p className='text-xs text-center text-neutral-400 my-4'>
 				If this is not what expected, let us know{' '}
 				<Link
 					className='underline underline-offset-4 text-pink-500'

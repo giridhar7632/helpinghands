@@ -27,14 +27,14 @@ export default async function Profile({
 					<Image
 						width={144}
 						height={144}
-						className='rounded-full border-2 border-gray-200 object-cover'
+						className='rounded-full border-2 border-neutral-200 object-cover'
 						src={user?.image || 'https://api.multiavatar.com/v.png'}
 						alt='upload image'
 					/>
 					<h1 className='my-4 text-center'>{user?.name}</h1>
 					<Link
 						href={`mailto:${user?.email}`}
-						className='text-center underline underline-offset-4 text-gray-500'>
+						className='text-center underline underline-offset-4 text-neutral-500'>
 						{user?.email}
 					</Link>
 				</>

@@ -5,6 +5,7 @@ import { Session } from 'next-auth'
 import prisma from '@/lib/db'
 import { IEvent } from '@/types'
 import { revalidatePath } from 'next/cache'
+import data from '@/data.json'
 
 export async function getSession(): Promise<Session> {
 	let session = await auth()
@@ -51,6 +52,19 @@ export async function createEvent(event: any) {
 	console.log({ newEvent })
 	return newEvent
 }
+
+// export async function seedEvents() {
+// 	console.log('Seeding events')
+// 	try {
+// 		await prisma.events.createMany({
+// 			data: data.events,
+// 			skipDuplicates: true,
+// 		})
+// 		console.log('seeded events')
+// 	} catch (error) {
+// 		console.error('Error seeding events', error)
+// 	}
+// }
 
 export async function getAllEvents({
 	query,

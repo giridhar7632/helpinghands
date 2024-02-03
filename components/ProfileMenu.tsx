@@ -24,14 +24,6 @@ export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger className='rounded-full overflow-hidden'>
-				{/* <Image
-					width={48}
-					height={48}
-					className='h-12 w-12'
-					src={image || 'https://api.multiavatar.com/v.png'}
-					alt={name || 'Avatar'}
-				/> */}
-
 				<Avatar>
 					<AvatarImage src={image || ''} alt={name || ''} />
 					<AvatarFallback>{getInitials(name || '')}</AvatarFallback>
@@ -39,9 +31,9 @@ export default function ProfileMenu({ name, email, image }: ProfileMenuProps) {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent>
 				<DropdownMenuLabel>
-					<div className='text-xs text-gray-400'>Logged in as:</div>
+					<div className='text-xs text-neutral-400'>Logged in as:</div>
 					<div className='font-semibold mt-2'>{name}</div>
-					<div className='truncate text-gray-500'>{email}</div>
+					<div className='truncate text-neutral-500'>{email}</div>
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>

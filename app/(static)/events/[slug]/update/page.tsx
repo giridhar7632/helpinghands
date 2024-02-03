@@ -29,7 +29,7 @@ export default async function UpdateEvent({
 	})
 	return record ? (
 		<>
-			<h1 className='text-3xl font-bold md:text-5xl/none mb-12'>
+			<h1 className='text-3xl mb-12 font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
 				Update event{' '}
 				<span className='text-lg font-normal italic text-neutral-500'>
 					({record?.title})
@@ -43,7 +43,7 @@ export default async function UpdateEvent({
 			/>
 		</>
 	) : (
-		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-gray-200 dark:border-gray-600 rounded-2xl p-6 md:p-12'>
+		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-neutral-200 dark:border-neutral-600 rounded-2xl p-6 md:p-12'>
 			<Image
 				className='mx-auto'
 				width={72}
@@ -60,7 +60,7 @@ export default async function UpdateEvent({
 			<Link className='mx-auto mt-6' href={'/'}>
 				<Button>Go to home</Button>
 			</Link>
-			<p className='text-xs text-center text-gray-400 my-4'>
+			<p className='text-xs text-center text-neutral-400 my-4'>
 				If this is not what expected, let us know{' '}
 				<Link
 					className='underline underline-offset-4 text-pink-500'
