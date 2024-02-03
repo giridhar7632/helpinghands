@@ -175,8 +175,8 @@ export default async function EventPage({
 				</h2>
 				<Collection
 					data={related}
-					emptyTitle='No events added yet'
-					emptyStateSubtext='Organise one by click the above button! 😇'
+					emptyTitle='No more events added yet'
+					emptyStateSubtext='Please check later! 😇'
 					page={1}
 					limit={6}
 					totalPages={1}
