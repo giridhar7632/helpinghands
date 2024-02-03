@@ -1,4 +1,4 @@
-import Button from '@/components/Button'
+import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -20,7 +20,7 @@ export default function ErrorPage() {
 			<p className='text-xs text-center text-neutral-400 my-4'>
 				If this is not what expected, let us know{' '}
 				<Link
-					className='underline underline-offset-4 text-blue-500'
+					className='underline underline-offset-4 text-pink-500'
 					href='/form/contact-us'>
 					here.
 				</Link>{' '}
