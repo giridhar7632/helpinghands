@@ -43,14 +43,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?         @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   events        events[]
+  registrations registrations[]
 }
 
 model VerificationToken {
@@ -68,18 +69,29 @@ model category {
 }
 
 model events {
-  id            Int       @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   title         String
   description   String?
   location      String?
-  createdAt     DateTime? @default(now()) @db.Timestamptz(6)
+  createdAt     DateTime?       @default(now()) @db.Timestamptz(6)
   imageUrl      String
-  startDateTime DateTime? @default(now()) @db.Timestamptz(6)
-  endDateTime   DateTime? @default(now()) @db.Timestamptz(6)
+  startDateTime DateTime?       @default(now()) @db.Timestamptz(6)
+  endDateTime   DateTime?       @default(now()) @db.Timestamptz(6)
   url           String?
   categoryId    Int?
   organizerId   String?
-  slug          String?   @unique
-  category      category? @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  User          User?     @relation(fields: [organizerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_organizer")
+  slug          String?         @unique
+  category      category?       @relation(fields: [categoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User          User?           @relation(fields: [organizerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_organizer")
+  registrations registrations[]
+}
+
+model registrations {
+  eventId     Int
+  userId      String
+  description String?
+  events      events  @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_eventid")
+  User        User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_userid")
+
+  @@id([eventId, userId])
 }

@@ -16,16 +16,25 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import toast from 'react-hot-toast'
+import { useEffect, useState } from 'react'
 
 export function ShareButton({ link }: { link: string }) {
-	const fullLink = window
-		? `${window.location.origin}${link}`
-		: `https://helpinghands-delta.vercel.app/${link}`
+	const [fullLink, setFullLink] = useState('')
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			setFullLink(`${window.location.origin}${link}`)
+		} else {
+			setFullLink(`https://helpinghands-delta.vercel.app/${link}`)
+		}
+	}, [link])
 
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button>Share</Button>
+				<Button className='flex-1' variant='outline'>
+					Spread the word
+				</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>

@@ -94,3 +94,18 @@ export async function deleteEvent(eventId: number) {
 	revalidatePath('/dashboard')
 	return deletedEvent
 }
+
+export async function registerForEvent(
+	eventId: number,
+	userId: string,
+	description: string
+) {
+	const newRegistration = await prisma.registrations.create({
+		data: {
+			eventId,
+			userId,
+			description,
+		},
+	})
+	return newRegistration
+}

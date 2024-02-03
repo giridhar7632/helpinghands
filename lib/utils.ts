@@ -23,3 +23,9 @@ export function generateSlug(s: string, name: string): string {
 
 	return hash.substring(0, 5) + '-' + toSlug(name)
 }
+
+export function getInitials(name: string) {
+	const words = name.split(' ')
+	const initials = words.map((word) => word[0].toUpperCase()).join('')
+	return initials
+}

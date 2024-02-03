@@ -13,6 +13,7 @@ import { auth } from '@/lib/auth'
 import { DeleteEvent } from '@/components/DeleteEvent'
 import { toSlug } from '@/lib/utils'
 import Collection from '@/components/Collection'
+import { RegisterForEvent } from '@/components/RegisterForEvent'
 
 type PramsProps = {
 	params: { slug: string }
@@ -165,7 +166,17 @@ export default async function EventPage({
 							<p>{record.description}</p>
 						</div>
 
-						<ShareButton link={`/events/${record.slug}`} />
+						<div className='flex flex-col gap-3'>
+							{session?.user &&
+							session?.user?.id === record.organizerId ? null : (
+								<RegisterForEvent
+									event='event'
+									eventId={record.id}
+									userId={session?.user.id as string}
+								/>
+							)}
+							<ShareButton link={`/events/${record.slug}`} />
+						</div>
 					</div>
 				</div>
 			</section>
