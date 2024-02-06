@@ -5,6 +5,7 @@ import Collection from '@/components/Collection'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { getAllEvents } from '../../../actions'
 
 type PramsProps = {
 	params: { slug: string }
@@ -52,12 +53,9 @@ export default async function CategoryPage({
 	params,
 	searchParams,
 }: PramsProps) {
-	const records = await prisma.events.findMany({
-		where: { categoryId: Number(params.slug.split('-')[0]) },
-		include: {
-			category: { select: { id: true, name: true } },
-			User: { select: { id: true, name: true, email: true } },
-		},
+	const records = await getAllEvents({
+		category: Number(params.slug.split('-')[0]),
+		limit: 6,
 	})
 	return records && records.length > 0 ? (
 		<>
@@ -68,9 +66,7 @@ export default async function CategoryPage({
 				data={records}
 				emptyTitle='No events added yet'
 				emptyStateSubtext='Please check back later! 😇'
-				page={1}
 				limit={6}
-				totalPages={1}
 			/>
 		</>
 	) : (

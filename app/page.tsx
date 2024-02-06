@@ -9,10 +9,11 @@ import ProfileMenu from '@/components/ProfileMenu'
 import { MobileNav } from '@/components/MobileNav'
 import { ThemeToggle } from '@/components/theme-provider'
 import { getAllEvents } from './actions'
+import { ENTRIES_LIMIT } from '../lib/constants'
 
 export default async function Component() {
 	const session = await auth()
-	const data = await getAllEvents({ query: '', limit: 6, page: 1 })
+	const data = await getAllEvents({ limit: ENTRIES_LIMIT })
 	// seedEvents()
 	return (
 		<>

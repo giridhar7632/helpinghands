@@ -1,10 +1,12 @@
 import { IEvent } from '@/types'
 import EventCard from './EventCard'
+import EventCardSkeleton from './EventCardSkeleton'
 
 type CollectionProps = {
 	data: any
 	emptyTitle: string
 	emptyStateSubtext: string
+	loading?: boolean
 	limit: number
 	page: number | string
 	totalPages?: number
@@ -16,6 +18,7 @@ export default function Collection({
 	data,
 	emptyTitle,
 	emptyStateSubtext,
+	loading,
 	limit,
 	page,
 	totalPages,
@@ -27,11 +30,15 @@ export default function Collection({
 			{data.length > 0 ? (
 				<div className='flex items-center flex-col gap-10 p-2 md:p-0'>
 					<ul className='grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10'>
-						{data.map((event: IEvent) => (
-							<li key={event.id}>
-								<EventCard event={event} />
-							</li>
-						))}
+						{loading
+							? new Array(limit)
+									.fill(0)
+									.map((_, i) => <EventCardSkeleton key={i} />)
+							: data.map((event: IEvent) => (
+									<li key={event.id}>
+										<EventCard event={event} />
+									</li>
+							  ))}
 					</ul>
 				</div>
 			) : (

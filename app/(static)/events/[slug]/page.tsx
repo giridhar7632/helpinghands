@@ -170,14 +170,15 @@ export default async function EventPage({
 						</div>
 
 						<div className='flex flex-col gap-3'>
-							{session?.user &&
-							session?.user?.id === record.organizerId ? null : (
-								<RegisterForEvent
-									event='event'
-									eventId={record.id}
-									userId={session?.user.id as string}
-								/>
-							)}
+							{session?.user ? (
+								session?.user?.id === record.organizerId ? null : (
+									<RegisterForEvent
+										event='event'
+										eventId={record.id}
+										userId={session?.user.id as string}
+									/>
+								)
+							) : null}
 							<ShareButton link={`/events/${record.slug}`} />
 						</div>
 					</div>

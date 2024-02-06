@@ -66,25 +66,47 @@ export async function createEvent(event: any) {
 // 	}
 // }
 
+export async function getAllEventsCount({
+	query,
+	category,
+}: {
+	query?: string
+	category?: number
+}) {
+	const eventsCnt = await prisma.events.count({
+		where: {
+			title: {
+				contains: query,
+				mode: 'insensitive',
+			},
+			categoryId: category,
+		},
+	})
+
+	return eventsCnt
+}
+
 export async function getAllEvents({
 	query,
 	limit,
 	category,
-	page,
+	skip,
 }: {
 	query?: string
 	limit?: number
 	category?: number
-	page?: number
+	skip?: number
 }) {
 	const events = await prisma.events.findMany({
 		where: {
 			title: {
 				contains: query,
+				mode: 'insensitive',
 			},
 			categoryId: category,
 		},
 		take: limit,
+		skip,
 		include: {
 			category: { select: { id: true, name: true } },
 			User: { select: { id: true, name: true } },

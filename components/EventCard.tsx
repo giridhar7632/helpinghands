@@ -15,14 +15,15 @@ export default async function EventCard({ event }: EventCardProps) {
 	return (
 		<div className='group cursor-pointer rounded-xl border bg-card text-card-foreground shadow relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden transition-all hover:shadow-lg md:min-h-[438px]'>
 			<div className='h-[250px] w-full relative bg-pink-100 overflow-hidden'>
-				<Link href={`/events/${event.slug}`}>
-					<Image
-						src={event.imageUrl}
-						alt={event.title}
-						className='object-cover group-hover:scale-105 transition-all'
-						fill={true}
-					/>
-				</Link>
+				{/* <Link href={`/events/${event.slug}`}> */}
+				<Image
+					src={event.imageUrl}
+					alt={event.title}
+					className='object-cover group-hover:scale-105 transition-all'
+					fill={true}
+					sizes='(max-width: 768px) 80vw, (max-width: 1200px) 30vw'
+				/>
+				{/* </Link> */}
 			</div>
 			<div className='flex flex-col p-4 gap-3 mb-4'>
 				<Link href={`/events/${event.slug}`}>
