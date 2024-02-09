@@ -2,7 +2,7 @@
 import NextAuth, { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
-import Email, { EmailConfig } from 'next-auth/providers/email'
+import Email, { NodemailerConfig } from 'next-auth/providers/nodemailer'
 import { sendVerificationRequest } from './sendVerificationRequest'
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import prisma from './db'
@@ -23,7 +23,7 @@ export const authOptions: NextAuthConfig = {
 			},
 			from: process.env.EMAIL_FROM,
 			sendVerificationRequest,
-		}) as EmailConfig & { options: Record<string, unknown> },
+		}) as NodemailerConfig & { options: Record<string, unknown> },
 	],
 	pages: {
 		signIn: '/auth/login',

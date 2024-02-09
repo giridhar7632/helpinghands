@@ -23,7 +23,7 @@ export const EmailLogin = () => {
 		<form
 			ref={formRef}
 			action={async (formData) => {
-				await signIn('email', {
+				await signIn('nodemailer', {
 					email: formData.get('email'),
 					callbackUrl: callbackUrl || `/dashboard`,
 				})
