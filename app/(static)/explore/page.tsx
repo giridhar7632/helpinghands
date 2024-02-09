@@ -1,3 +1,4 @@
+import SearchEvents from '@/components/SearchEvents'
 import Collection from '../../../components/Collection'
 import { EventsPagination } from '../../../components/EventsPagination'
 import { ENTRIES_PER_PAGE } from '../../../lib/constants'
@@ -44,7 +45,14 @@ export default async function Contact({ searchParams }: PramsProps) {
 					{recordCount}
 				</span>
 			</div>
-			<Collection data={records} />
+			<SearchEvents placeholder='Search for the title of your favourite events' />
+			<Collection
+				data={records}
+				emptyTitle='No events added yet'
+				emptyStateSubtext='Please check back later! 😇'
+				page={pageNumber}
+				limit={ENTRIES_PER_PAGE}
+			/>
 			<div className='my-6 md:my-12'>
 				<EventsPagination
 					currPage={pageNumber}

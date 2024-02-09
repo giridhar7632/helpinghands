@@ -2,14 +2,14 @@ import { Metadata, ResolvingMetadata } from 'next'
 import prisma from '@/lib/db'
 import { toSlug } from '@/lib/utils'
 import Collection from '@/components/Collection'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { getAllEvents } from '../../../actions'
+import { getAllEvents, getAllEventsCount } from '../../../actions'
+import { ENTRIES_PER_PAGE } from '@/lib/constants'
+import { EventsPagination } from '@/components/EventsPagination'
+import SearchEvents from '@/components/SearchEvents'
 
 type PramsProps = {
 	params: { slug: string }
-	searchParams: { [key: string]: string | string[] | undefined }
+	searchParams?: { [key: string]: string | undefined }
 }
 
 export async function generateMetadata(
@@ -53,48 +53,52 @@ export default async function CategoryPage({
 	params,
 	searchParams,
 }: PramsProps) {
-	const records = await getAllEvents({
+	const pageNumber = Number(searchParams?.page) || 1
+	const searchQuery = searchParams?.query || ''
+
+	const recordCountPromise = getAllEventsCount({ query: searchQuery })
+
+	const recordPagePromise = getAllEvents({
+		limit: ENTRIES_PER_PAGE,
+		query: searchQuery,
 		category: Number(params.slug.split('-')[0]),
-		limit: 6,
+		skip: ENTRIES_PER_PAGE * pageNumber - ENTRIES_PER_PAGE,
 	})
-	return records && records.length > 0 ? (
+
+	const [records, recordCount] = await Promise.all([
+		recordPagePromise,
+		recordCountPromise,
+	])
+
+	const totalNumberOfPages = Math.ceil(recordCount / ENTRIES_PER_PAGE)
+
+	const page = {
+		pageNumber,
+		hasNextPage: totalNumberOfPages > pageNumber,
+		hasPreviousPage: pageNumber > 1,
+		totalNumberOfPages,
+	}
+
+	return (
 		<>
 			<h1 className='text-3xl mb-12 font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
-				Explore events related to category: {records[0].category?.name}
+				Explore events related to category: {records[0]?.category?.name || ''}
 			</h1>
+			<SearchEvents placeholder='Search for the title of your favourite events' />
+
 			<Collection
 				data={records}
 				emptyTitle='No events added yet'
-				emptyStateSubtext='Please check back later! 😇'
-				limit={6}
+				emptyStateSubtext='There are no events in this category! Please check again after sometime. 😇'
+				page={pageNumber}
+				limit={ENTRIES_PER_PAGE}
 			/>
+			<div className='my-6 md:my-12'>
+				<EventsPagination
+					currPage={pageNumber}
+					totalPages={page.totalNumberOfPages}
+				/>
+			</div>
 		</>
-	) : (
-		<div className='w-80 mx-auto sm:w-96 flex flex-col border border-neutral-200 dark:border-neutral-600 rounded-2xl p-6 md:p-12'>
-			<Image
-				className='mx-auto'
-				width={72}
-				height={72}
-				src='/logo.png'
-				alt='Helping hands network Logo'
-			/>
-			<h1 className='my-6 text-center text-2xl'>No events found</h1>
-			<p className='text-center'>
-				{
-					'There are no events in this category! Please check again after sometime.'
-				}
-			</p>
-			<Link className='mx-auto mt-6' href={'/'}>
-				<Button>Explore other events</Button>
-			</Link>
-			<p className='text-xs text-center text-neutral-400 my-4'>
-				If this is not what expected, let us know{' '}
-				<Link
-					className='underline underline-offset-4 text-pink-500'
-					href='/form/contact-us'>
-					here.
-				</Link>
-			</p>
-		</div>
 	)
 }
