@@ -1,5 +1,14 @@
-import { SendVerificationRequestParams } from 'next-auth/providers'
 import { createTransport } from 'nodemailer'
+
+type SendVerificationRequestParams = {
+	identifier: string
+	url: string
+	provider: {
+		server: any
+		from: string
+	}
+	theme?: any
+}
 
 export async function sendVerificationRequest(
 	params: SendVerificationRequestParams
