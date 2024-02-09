@@ -56,7 +56,10 @@ export default async function CategoryPage({
 	const pageNumber = Number(searchParams?.page) || 1
 	const searchQuery = searchParams?.query || ''
 
-	const recordCountPromise = getAllEventsCount({ query: searchQuery })
+	const recordCountPromise = getAllEventsCount({
+		query: searchQuery,
+		category: Number(params.slug.split('-')[0]),
+	})
 
 	const recordPagePromise = getAllEvents({
 		limit: ENTRIES_PER_PAGE,
@@ -81,9 +84,14 @@ export default async function CategoryPage({
 
 	return (
 		<>
-			<h1 className='text-3xl mb-12 font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
-				Explore events related to category: {records[0]?.category?.name || ''}
-			</h1>
+			<div className='flex items-center gap-3 mb-12'>
+				<h1 className='text-3xl mb-12 font-bold tracking-tighter sm:text-5xl xl:text-6xl/none'>
+					Explore events related to category: {records[0]?.category?.name || ''}
+				</h1>
+				<span className='inline-block rounded-lg bg-neutral-100 dark:text-neutral-800 px-3 py-1 text-sm'>
+					{recordCount}
+				</span>
+			</div>
 			<SearchEvents placeholder='Search for the title of your favourite events' />
 
 			<Collection

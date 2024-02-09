@@ -8,7 +8,7 @@ type PramsProps = {
 	searchParams: { [key: string]: string | undefined }
 }
 
-export default async function Contact({ searchParams }: PramsProps) {
+export default async function Explore({ searchParams }: PramsProps) {
 	const pageNumber = Number(searchParams?.page) || 1
 	const searchQuery = searchParams?.query || ''
 

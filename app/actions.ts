@@ -3,9 +3,7 @@
 import { auth } from '@/lib/auth'
 import { Session } from 'next-auth'
 import prisma from '@/lib/db'
-import { IEvent } from '@/types'
 import { revalidatePath } from 'next/cache'
-import data from '@/data.json'
 
 export async function getSession(): Promise<Session> {
 	let session = await auth()
@@ -68,9 +66,11 @@ export async function createEvent(event: any) {
 
 export async function getAllEventsCount({
 	query,
+	organizer,
 	category,
 }: {
 	query?: string
+	organizer?: string
 	category?: number
 }) {
 	const eventsCnt = await prisma.events.count({
@@ -80,6 +80,7 @@ export async function getAllEventsCount({
 				mode: 'insensitive',
 			},
 			categoryId: category,
+			organizerId: organizer,
 		},
 	})
 
@@ -88,11 +89,13 @@ export async function getAllEventsCount({
 
 export async function getAllEvents({
 	query,
+	organizer,
 	limit,
 	category,
 	skip,
 }: {
 	query?: string
+	organizer?: string
 	limit?: number
 	category?: number
 	skip?: number
@@ -104,6 +107,7 @@ export async function getAllEvents({
 				mode: 'insensitive',
 			},
 			categoryId: category,
+			organizerId: organizer,
 		},
 		take: limit,
 		skip,

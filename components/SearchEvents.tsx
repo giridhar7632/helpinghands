@@ -41,7 +41,7 @@ export default function SearchEvents({ placeholder }: { placeholder: string }) {
 			size={48}
 			value={searchQuery}
 			onChange={(e) => setSearchQuery(e.target.value)}
-			className='mb-8'
+			className='mb-6 w-full'
 		/>
 	)
 }
