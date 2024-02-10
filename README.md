@@ -1,7 +1,7 @@
 
 <div align="center">
       <img src="https://helpinghands-delta.vercel.app/logo.png" width="100px"><br/>
-        <h1> <a href="https://helpinghands-delta.vercel.app/">Helping hands network</a>a></h1>
+        <h1> <a href="https://helpinghands-delta.vercel.app/">Helping hands network</a></h1>
   <p>a network of care and collaboration</p>
      </div>
 <p align="center"> <a href="https://helpinghands-delta.vercel.app/" target="_blank"><img alt="" src="https://img.shields.io/badge/Website-3B82F6?style=normal&logoColor=white" style="vertical-align:center" /></a></p>
