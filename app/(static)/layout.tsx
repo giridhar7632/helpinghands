@@ -18,7 +18,9 @@ export default async function AuthLayout({
 				<Link href='/'>
 					<div className='flex items-center gap-4'>
 						<Image alt='logo' src='/logo.png' width={32} height={32} />
-						<p className='leading-none'>Helping hands network</p>
+						<p className='hidden md:inline leading-none'>
+							Helping hands network
+						</p>
 					</div>
 				</Link>
 				<div className='flex items-center gap-4'>

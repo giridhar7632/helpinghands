@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import Image from 'next/image'
 import { auth } from '@/lib/auth'
 import { DeleteEvent } from './DeleteEvent'
-import { toSlug } from '@/lib/utils'
+import { formatDateRange, toSlug } from '@/lib/utils'
 
 type EventCardProps = {
 	event: any
@@ -32,7 +32,7 @@ export default async function EventCard({ event }: EventCardProps) {
 					</h2>
 				</Link>
 				<p className='text-neutral-500'>
-					{format(event.startDateTime as Date, 'PPP')}
+					{formatDateRange(event.startDateTime, event.endDateTime)}
 				</p>
 				<Link
 					href={`/category/${event.categoryId}-${toSlug(

@@ -8,16 +8,18 @@ import toast from 'react-hot-toast'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { getInitials } from '@/lib/utils'
+import { getInitials, getNonEmptyEntries } from '@/lib/utils'
+import { Textarea } from './ui/textarea'
 
 type UserFormProps = {
 	image?: string | null
 	name?: string | null
 	email?: string | null
 	id?: string | null
+	bio?: string | null
 }
 
-const UserForm = ({ id, image, name, email }: UserFormProps) => {
+const UserForm = ({ id, image, name, email, bio }: UserFormProps) => {
 	const [loading, setLoading] = useState(false)
 	const [previewImage, setPreviewImage] = useState<string | null>(null)
 
@@ -55,7 +57,7 @@ const UserForm = ({ id, image, name, email }: UserFormProps) => {
 				console.log(formData.get('name'))
 				setLoading(true)
 				try {
-					await updateProfile(formData)
+					await updateProfile(getNonEmptyEntries(formData))
 					toast.success('Profile updated successfully! 🎊')
 				} catch (error) {
 					console.log(error)
@@ -85,6 +87,7 @@ const UserForm = ({ id, image, name, email }: UserFormProps) => {
 				placeholder={email || 'email'}
 				disabled
 			/>
+			<Textarea name='bio' placeholder={bio || 'Add your bio'} />
 
 			<Button type='submit' className='w-full my-2' disabled={loading}>
 				Update profile

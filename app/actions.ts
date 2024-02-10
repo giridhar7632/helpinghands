@@ -14,12 +14,12 @@ export async function getSession(): Promise<Session> {
 	return session
 }
 
-export async function updateProfile(formData: FormData) {
+export async function updateProfile(data: any) {
 	const session = await getSession()
 	if (session) {
 		const res = await prisma.user.update({
 			where: { id: session.user.id },
-			data: { name: formData.get('name') as string },
+			data,
 		})
 
 		return res
@@ -111,6 +111,7 @@ export async function getAllEvents({
 		},
 		take: limit,
 		skip,
+		orderBy: { endDateTime: 'desc' },
 		include: {
 			category: { select: { id: true, name: true } },
 			User: { select: { id: true, name: true } },

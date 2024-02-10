@@ -6,7 +6,7 @@ export default async function ProfilePage() {
 	const session = await auth()
 	const user = await prisma.user.findUnique({
 		where: { id: session?.user?.id },
-		select: { id: true, name: true, email: true, image: true },
+		select: { id: true, name: true, email: true, image: true, bio: true },
 	})
 
 	return (
@@ -18,6 +18,7 @@ export default async function ProfilePage() {
 						image={user.image}
 						email={user.email}
 						name={user.name}
+						bio={user.bio}
 					/>
 				) : (
 					<p className='dark:text-neutral-300'>User not found!</p>

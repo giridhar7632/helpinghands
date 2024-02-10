@@ -29,7 +29,8 @@ export default async function Profile({
 						<AvatarImage src={user?.image || ''} alt={user?.name || ''} />
 						<AvatarFallback>{getInitials(user?.name || '')}</AvatarFallback>
 					</Avatar>
-					<h1 className='my-4 text-center'>{user?.name}</h1>
+					<h1 className='mt-4 mb-2 text-center'>{user?.name}</h1>
+					<p className='mb-4 text-center'>{user?.bio}</p>
 					<Link
 						href={`mailto:${user?.email}`}
 						className='text-center underline underline-offset-4 text-neutral-500'>
