@@ -15,7 +15,7 @@ export const authOptions: NextAuthConfig = {
 		Email({
 			server: {
 				host: process.env.EMAIL_SERVER_HOST,
-				port: +(process.env.EMAIL_SERVER_PORT as string),
+				port: process.env.EMAIL_SERVER_PORT,
 				auth: {
 					user: process.env.EMAIL_SERVER_USER,
 					pass: process.env.EMAIL_SERVER_PASSWORD,
