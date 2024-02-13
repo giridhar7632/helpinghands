@@ -60,7 +60,7 @@ export function formUrlQuery({
 
 	return qs.stringifyUrl(
 		{
-			url: window.location.pathname,
+			url: window.location.href,
 			query: currentUrl,
 		},
 		{ skipNull: true }
@@ -82,7 +82,7 @@ export function removeKeysFromQuery({
 
 	return qs.stringifyUrl(
 		{
-			url: window.location.pathname,
+			url: window.location.href,
 			query: currentUrl,
 		},
 		{ skipNull: true }

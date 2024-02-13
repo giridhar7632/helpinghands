@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/pagination'
 import { formUrlQuery } from '@/lib/utils'
 import { useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 type EventsPaginationProps = {
 	totalPages: number
@@ -23,23 +24,29 @@ export function EventsPagination({
 	currPage,
 	urlParamName,
 }: EventsPaginationProps) {
+	const [pagesNumbers, setPagesNumbers] = useState<React.ReactNode>([])
 	const searchParams = useSearchParams()
+	useEffect(() => {
+		renderPageNumbers()
+	}, [searchParams, currPage, totalPages])
 
 	const renderPageNumbers = () => {
 		if (totalPages <= 5) {
-			return Array.from({ length: totalPages }, (_, index) => index + 1).map(
-				(number) => (
-					<PaginationItem key={number}>
-						<PaginationLink
-							href={formUrlQuery({
-								params: searchParams.toString(),
-								key: urlParamName || 'page',
-								value: `${number}`,
-							})}
-							isActive={number === currPage}>
-							{number}
-						</PaginationLink>
-					</PaginationItem>
+			setPagesNumbers(
+				Array.from({ length: totalPages }, (_, index) => index + 1).map(
+					(number) => (
+						<PaginationItem key={number}>
+							<PaginationLink
+								href={formUrlQuery({
+									params: searchParams.toString(),
+									key: urlParamName || 'page',
+									value: `${number}`,
+								})}
+								isActive={number === currPage}>
+								{number}
+							</PaginationLink>
+						</PaginationItem>
+					)
 				)
 			)
 		} else {
@@ -108,7 +115,7 @@ export function EventsPagination({
 				)
 			}
 
-			return pages
+			setPagesNumbers(pages)
 		}
 	}
 	return (
@@ -125,7 +132,7 @@ export function EventsPagination({
 					/>
 				</PaginationItem>
 
-				{renderPageNumbers()}
+				{pagesNumbers}
 
 				<PaginationItem>
 					<PaginationNext

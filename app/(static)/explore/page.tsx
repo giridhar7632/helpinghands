@@ -34,7 +34,6 @@ export default async function Explore({ searchParams }: PramsProps) {
 		totalNumberOfPages,
 	}
 
-	console.log(searchParams)
 	return (
 		<>
 			<div className='flex items-center gap-3 mb-12'>
